@@ -1,18 +1,15 @@
+<script setup lang="ts">
+import { provide } from "vue";
+import { defaultTheme } from "@/themes";
+import { themeKey } from "@/keys";
+import AppWindow from "@/components/AppWindow.vue";
+
+provide(themeKey, defaultTheme);
+</script>
+
 <template>
   <AppWindow>Children</AppWindow>
 </template>
-
-<script lang="ts">
-import { defineComponent } from "vue";
-import AppWindow from "@/components/AppWindow.vue";
-
-export default defineComponent({
-  name: "App",
-  components: {
-    AppWindow,
-  },
-});
-</script>
 
 <style lang="scss">
 html,
