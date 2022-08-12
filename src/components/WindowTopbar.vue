@@ -50,7 +50,7 @@ defineEmits<Emits>();
     <ComponentOrPlaceholder>
       <IconButton
         class="window_topbar__button"
-        v-if="$attrs.onMaximizeClick"
+        v-if="!!$attrs.onMaximizeClick"
         @click="$emit('MaximizeClick')"
         :icon="topbarMaximizeIcon"
       />
@@ -58,7 +58,7 @@ defineEmits<Emits>();
     <ComponentOrPlaceholder>
       <IconButton
         class="window_topbar__button"
-        v-if="$attrs.onCloseClick"
+        v-if="!!$attrs.onCloseClick"
         @click="$emit('CloseClick')"
         :icon="topbarCloseIcon"
       />
