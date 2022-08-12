@@ -8,10 +8,16 @@ provide(themeKey, defaultTheme);
 </script>
 
 <template>
-  <AppWindow>Children</AppWindow>
+  <AppWindow name="Winamp">Children</AppWindow>
 </template>
 
 <style lang="scss">
+@font-face {
+  font-family: "Winamp";
+  src: local("Winamp"),
+    url(./assets/fonts/Winamp-Regular.ttf) format("truetype");
+}
+
 html,
 body {
   margin: 0;
@@ -19,12 +25,19 @@ body {
   width: 100%;
   height: 100%;
   min-height: 100vh;
+
+  & > * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 }
 
 #app {
+  height: 100%;
+  background: linear-gradient(180deg, #3f3d69 0%, #272643 100%);
+  padding: 50px;
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100%;
 }
 </style>

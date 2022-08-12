@@ -1,10 +1,17 @@
+import type { Theme } from "..";
+
 const colors = {
   appBackground: "#000000",
 };
 
 const size = {
-  width: "1024px",
-  height: "768px",
+  width: "273px",
+  height: "150px",
 };
 
-export default { colors, size };
+const theme: Theme = {
+  colors,
+  size,
+};
+
+export default theme;
