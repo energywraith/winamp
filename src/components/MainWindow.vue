@@ -25,26 +25,24 @@ const marqueeText = useMarquee(getFullSongName(song));
   <WindowBase name="Winamp" class="main_window">
     <div class="main_window__two_column">
       <ScreenBase
-        class="main_window__two_column__left__screen_base"
+        class="screen_base screen_base--status"
         withRectanglesBackground
       >
         <template #sideLetters>0AIDV</template>
         <PlayState :state="playState" />
       </ScreenBase>
       <div class="main_window__two_column__right">
-        <ScreenBase
-          class="main_window__two_column__right__screen_base main_window__two_column__right__screen_base--width-full"
-        >
-          <div class="marquee_container">
+        <ScreenBase class="screen_base screen_base--song-title">
+          <div class="marquee">
             {{ marqueeText }}
           </div>
         </ScreenBase>
-        <div style="display: flex; margin-top: 4px">
-          <ScreenBase class="main_window__two_column__right__screen_base">
+        <div class="media_info_group">
+          <ScreenBase class="screen_base screen_base--media-info">
             192
           </ScreenBase>
           kbps
-          <ScreenBase class="main_window__two_column__right__screen_base">
+          <ScreenBase class="screen_base screen_base--media-info">
             44
           </ScreenBase>
           kHz
@@ -65,7 +63,7 @@ const marqueeText = useMarquee(getFullSongName(song));
     display: grid;
     grid-template-columns: auto minmax(0, 1fr);
 
-    &__left__screen_base {
+    .screen_base--status {
       width: 92px;
       padding: 2px;
       box-sizing: border-box;
@@ -75,23 +73,31 @@ const marqueeText = useMarquee(getFullSongName(song));
       margin-left: 4px;
       font-size: 9px;
 
-      &__screen_base {
+      .screen_base {
         color: v-bind("theme?.colors.winampGreen");
+        font-family: "Retro";
         height: 14px;
         padding: 0 2px;
         box-sizing: border-box;
-        width: fit-content;
-        font-family: "Retro";
 
-        &--width-full {
+        &--song-title {
           width: 100%;
+
+          .marquee {
+            overflow: hidden;
+            white-space: nowrap;
+            user-select: none;
+          }
         }
 
-        .marquee_container {
-          overflow: hidden;
-          white-space: nowrap;
-          user-select: none;
+        &--media-info {
+          width: fit-content;
         }
+      }
+
+      .media_info_group {
+        display: flex;
+        margin-top: 4px;
       }
     }
   }
