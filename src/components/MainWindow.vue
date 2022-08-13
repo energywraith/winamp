@@ -4,6 +4,7 @@ import useMarquee from "@/composables/marquee";
 import WindowBase from "@/components/WindowBase.vue";
 import ScreenBase from "@/components/ScreenBase.vue";
 import PlayState from "@/components/PlayState.vue";
+import RangeInput from "@/components/Input/RangeInput.vue";
 import type { PlayStates } from "@/types/playStates";
 import type { Song } from "@/types/song";
 import { themeKey } from "@/keys";
@@ -19,6 +20,10 @@ const song: Song = reactive({
 
 const playState = ref<PlayStates>("pause");
 const marqueeText = useMarquee(getFullSongName(song));
+
+const volume = ref<string>("0");
+const balance = ref<string>("0");
+const seeking = ref<string>("0");
 </script>
 
 <template>
@@ -41,15 +46,30 @@ const marqueeText = useMarquee(getFullSongName(song));
           <ScreenBase class="screen_base screen_base--media-info">
             192
           </ScreenBase>
-          kbps
+          <div class="media_info_name">kbps</div>
           <ScreenBase class="screen_base screen_base--media-info">
             44
           </ScreenBase>
-          kHz
-          <div>mono</div>
-          <div>stereo</div>
+          <div class="media_info_name">kHz</div>
+          <!-- <div>mono</div>
+          <div>stereo</div> -->
         </div>
+        <RangeInput
+          class="range_input range_input--volume"
+          v-model="volume"
+          withColoredTrack
+        />
+        <RangeInput
+          class="range_input range_input--balance"
+          v-model="balance"
+          withColoredTrack
+        />
       </div>
+      <RangeInput
+        class="range_input range_input--seeking"
+        v-model="seeking"
+        withGoldenThumb
+      />
     </div>
   </WindowBase>
 </template>
@@ -65,6 +85,7 @@ const marqueeText = useMarquee(getFullSongName(song));
 
     .screen_base--status {
       width: 92px;
+      height: 42px;
       padding: 2px;
       box-sizing: border-box;
     }
@@ -75,12 +96,12 @@ const marqueeText = useMarquee(getFullSongName(song));
 
       .screen_base {
         color: v-bind("theme?.colors.winampGreen");
-        font-family: "Retro";
-        height: 14px;
         padding: 0 2px;
         box-sizing: border-box;
+        font-family: "Retro";
 
         &--song-title {
+          height: 14px;
           width: 100%;
 
           .marquee {
@@ -92,12 +113,39 @@ const marqueeText = useMarquee(getFullSongName(song));
 
         &--media-info {
           width: fit-content;
+          height: 10px;
         }
       }
 
       .media_info_group {
         display: flex;
         margin-top: 4px;
+        font-size: 8px;
+
+        .media_info_name {
+          align-self: center;
+          color: white;
+          margin-left: 4px;
+          margin-right: 6px;
+          font-size: 7px;
+          font-family: arial;
+        }
+      }
+    }
+
+    .range_input {
+      &--volume {
+        margin-top: 10px;
+        width: 63px;
+      }
+      &--balance {
+        margin-top: 10px;
+        width: 38px;
+      }
+      &--seeking {
+        width: 99%;
+        grid-column: 1/3;
+        margin-top: 5px;
       }
     }
   }
