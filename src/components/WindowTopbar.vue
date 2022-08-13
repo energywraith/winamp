@@ -79,6 +79,7 @@ defineEmits<Emits>();
     height: 100%;
     width: 9px;
     margin-left: 1px;
+    user-select: none;
 
     &--menu {
       width: 11px;
@@ -95,7 +96,7 @@ defineEmits<Emits>();
     font-size: 8px;
     letter-spacing: 0.45px;
     margin-left: 4px;
-    margin-right: 2px;
+    margin-right: 4px;
     user-select: none;
     display: flex;
     align-items: center;

@@ -19,7 +19,7 @@ const mockFunction = () => {
 </script>
 
 <template>
-  <div class="app_window">
+  <div class="window_base">
     <WindowTopbar
       :name="name"
       @menu-click="mockFunction"
@@ -27,16 +27,16 @@ const mockFunction = () => {
       @maximize-click="mockFunction"
       @close-click="mockFunction"
     />
-    <div class="app_window__content">
+    <div class="window_base__content">
       <slot />
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.app_window {
+.window_base {
   width: v-bind("theme?.size.width");
-  height: v-bind("theme?.size.height");
+  height: fit-content;
   border: 1px solid rgb(34, 34, 53);
   box-sizing: border-box;
   background: linear-gradient(
@@ -63,7 +63,7 @@ const mockFunction = () => {
       inset 1px 1px 0px rgba(113, 113, 134, 0.65);
     box-sizing: border-box;
     margin: -2px 3px 5px 3px;
-    padding: 7px 2px 7px 5px;
+    padding: 7px 4px 7px 5px;
   }
 }
 </style>

@@ -2,13 +2,13 @@
 import { provide } from "vue";
 import { defaultTheme } from "@/themes";
 import { themeKey } from "@/keys";
-import AppWindow from "@/components/AppWindow.vue";
+import MainWindow from "@/components/MainWindow.vue";
 
 provide(themeKey, defaultTheme);
 </script>
 
 <template>
-  <AppWindow name="Winamp">Children</AppWindow>
+  <MainWindow />
 </template>
 
 <style lang="scss">
@@ -16,6 +16,12 @@ provide(themeKey, defaultTheme);
   font-family: "Winamp";
   src: local("Winamp"),
     url(./assets/fonts/Winamp-Regular.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Retro";
+  src: local("Retro"),
+    url(./assets/fonts/Retrocomputer-Regular.ttf) format("truetype");
 }
 
 html,
