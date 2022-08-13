@@ -58,10 +58,12 @@ const mockFunction = () => {
       #383759 82.14%,
       #201f31 105.83%
     );
-    border: 3px solid #171723;
-    height: 100%;
-    padding: 10px;
+    border: 2px solid #171723;
+    box-shadow: 1px 1px 0px rgba(109, 109, 128, 0.75),
+      inset 1px 1px 0px rgba(113, 113, 134, 0.65);
     box-sizing: border-box;
+    margin: -2px 3px 5px 3px;
+    padding: 7px 2px 7px 5px;
   }
 }
 </style>

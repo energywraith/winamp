@@ -32,6 +32,7 @@ withDefaults(defineProps<Props>(), {
     box-sizing: border-box;
 
     &:nth-of-type(1) {
+      border-bottom-width: 0;
       border-radius: 7px 7px 4px 4px;
       background: linear-gradient(
         to bottom,
