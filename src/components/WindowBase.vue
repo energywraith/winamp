@@ -63,7 +63,7 @@ const mockFunction = () => {
       inset 1px 1px 0px rgba(113, 113, 134, 0.65);
     box-sizing: border-box;
     margin: -2px 3px 5px 3px;
-    padding: 7px 4px 7px 5px;
+    padding: 7px 4px 7px 8px;
   }
 }
 </style>

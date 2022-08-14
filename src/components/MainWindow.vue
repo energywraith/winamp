@@ -3,20 +3,24 @@ import { ref, inject, reactive } from "vue";
 import useMarquee from "@/composables/marquee";
 import WindowBase from "@/components/WindowBase.vue";
 import ScreenBase from "@/components/ScreenBase.vue";
+import SoundVisualizer from "@/components/SoundVisualizer.vue";
 import PlayState from "@/components/PlayState.vue";
 import RangeInput from "@/components/Input/RangeInput.vue";
+import MonoStereo from "@/components/MonoStereo.vue";
+import CheckboxInput from "@/components/Input/CheckboxInput.vue";
 import ControlButtons from "@/components/ControlButtons.vue";
 import type { PlayStates } from "@/types/playStates";
 import type { Song } from "@/types/song";
 import { themeKey } from "@/keys";
 import getFullSongName from "@/utils/getFullSongName";
+import formatTime from "@/utils/formatTime";
 
 const theme = inject(themeKey);
 
 const song: Song = reactive({
   duration: "3:05",
   author: "Linkin Park",
-  name: "A Place for My Head",
+  name: "A Place For My Head",
 });
 
 const playState = ref<PlayStates>("pause");
@@ -25,6 +29,13 @@ const marqueeText = useMarquee(getFullSongName(song));
 const volume = ref<string>("0");
 const balance = ref<string>("0");
 const seeking = ref<string>("0");
+const kbps = ref<number>(192);
+const kHz = ref<number>(44);
+const minutes = ref<number>(1);
+const seconds = ref<number>(15);
+
+const showEqualizer = ref<boolean>(false);
+const showPlaylist = ref<boolean>(false);
 </script>
 
 <template>
@@ -35,7 +46,13 @@ const seeking = ref<string>("0");
         withRectanglesBackground
       >
         <template #sideLetters>0AIDV</template>
-        <PlayState :state="playState" />
+        <div class="screen_base__content">
+          <PlayState :state="playState" />
+          <div class="screen_base__content__timer">
+            {{ formatTime(minutes, seconds) }}
+          </div>
+          <SoundVisualizer class="screen_base__content__visualizer" />
+        </div>
       </ScreenBase>
       <div class="main_window__two_column__right">
         <ScreenBase class="screen_base screen_base--song-title">
@@ -45,33 +62,46 @@ const seeking = ref<string>("0");
         </ScreenBase>
         <div class="media_info_group">
           <ScreenBase class="screen_base screen_base--media-info">
-            192
+            {{ kbps }}
           </ScreenBase>
           <div class="media_info_name">kbps</div>
           <ScreenBase class="screen_base screen_base--media-info">
-            44
+            {{ kHz }}
           </ScreenBase>
           <div class="media_info_name">kHz</div>
-          <!-- <div>mono</div>
-          <div>stereo</div> -->
+          <MonoStereo class="media_info_sound_type" value="stereo" />
         </div>
-        <RangeInput
-          class="range_input range_input--volume"
-          v-model="volume"
-          withColoredTrack
-        />
-        <RangeInput
-          class="range_input range_input--balance"
-          v-model="balance"
-          withColoredTrack
-        />
+        <div class="main_window__row">
+          <RangeInput
+            class="range_input range_input--volume"
+            v-model="volume"
+            withColoredTrack
+          />
+          <RangeInput
+            class="range_input range_input--balance"
+            v-model="balance"
+            withColoredTrack
+          />
+          <CheckboxInput
+            v-model="showEqualizer"
+            name="equalizer"
+            label="eq"
+            class="checkbox_input checkbox_input--equalizer"
+          />
+          <CheckboxInput
+            v-model="showPlaylist"
+            name="playlist editor"
+            label="pl"
+            class="checkbox_input"
+          />
+        </div>
       </div>
-      <RangeInput
-        class="range_input range_input--seeking"
-        v-model="seeking"
-        withGoldenThumb
-      />
     </div>
+    <RangeInput
+      class="range_input range_input--seeking"
+      v-model="seeking"
+      withGoldenThumb
+    />
     <ControlButtons class="main_window__buttons" />
   </WindowBase>
 </template>
@@ -85,11 +115,34 @@ const seeking = ref<string>("0");
     display: grid;
     grid-template-columns: auto minmax(0, 1fr);
 
-    .screen_base--status {
-      width: 92px;
-      height: 42px;
-      padding: 2px;
-      box-sizing: border-box;
+    .screen_base {
+      &__content {
+        display: grid;
+        grid-template-columns: auto auto;
+        grid-template-rows: auto 1fr;
+        flex-grow: 1;
+        color: white;
+
+        &__timer {
+          color: #00fa00;
+          font-family: "PostPixel";
+          margin-left: auto;
+          font-size: 14px;
+          letter-spacing: 1px;
+        }
+
+        &__visualizer {
+          grid-column: 1/3;
+          grid-row: 2;
+        }
+      }
+
+      &--status {
+        width: 88px;
+        height: 42px;
+        padding: 2px;
+        box-sizing: border-box;
+      }
     }
 
     &__right {
@@ -98,15 +151,20 @@ const seeking = ref<string>("0");
 
       .screen_base {
         color: v-bind("theme?.colors.winampGreen");
-        padding: 0 2px;
         box-sizing: border-box;
-        font-family: "Retro";
+        font-family: "Pixelmix";
+        font-size: 7px;
+        text-transform: uppercase;
+        padding: 0 2px;
 
         &--song-title {
           height: 14px;
           width: 100%;
+          letter-spacing: 0.7px;
+          filter: contrast(1);
 
           .marquee {
+            margin-top: 2px;
             overflow: hidden;
             white-space: nowrap;
             user-select: none;
@@ -115,7 +173,11 @@ const seeking = ref<string>("0");
 
         &--media-info {
           width: fit-content;
-          height: 10px;
+          height: 11px;
+          font-size: 7px;
+          display: flex;
+          align-items: center;
+          filter: contrast(1);
         }
       }
 
@@ -123,38 +185,56 @@ const seeking = ref<string>("0");
         display: flex;
         margin-top: 4px;
         font-size: 8px;
+        align-items: center;
+        font-family: "Pixelmix";
 
         .media_info_name {
           align-self: center;
           color: white;
           margin-left: 4px;
           margin-right: 6px;
-          font-size: 7px;
-          font-family: arial;
+          font-size: 6px;
         }
-      }
-    }
 
-    .range_input {
-      &--volume {
-        margin-top: 10px;
-        width: 63px;
-      }
-      &--balance {
-        margin-top: 10px;
-        margin-left: 6px;
-        width: 38px;
-      }
-      &--seeking {
-        width: 99%;
-        grid-column: 1/3;
-        margin-top: 5px;
+        .media_info_sound_type {
+          margin-left: auto;
+        }
       }
     }
   }
 
+  .range_input {
+    &--volume {
+      width: 58px;
+    }
+    &--balance {
+      margin-left: 6px;
+      width: 38px;
+    }
+    &--seeking {
+      width: 99%;
+      grid-column: 1/3;
+      margin-top: 10px;
+    }
+  }
+
+  .checkbox_input {
+    font-size: 6px;
+    margin-top: 2px;
+
+    &--equalizer {
+      margin-left: 4px;
+    }
+  }
+
   &__buttons {
-    margin-top: 6px;
+    margin-top: 10px;
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+    margin-top: 4px;
   }
 }
 </style>
