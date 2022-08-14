@@ -2,7 +2,7 @@
 import { provide } from "vue";
 import { defaultTheme } from "@/themes";
 import { themeKey } from "@/keys";
-import MainWindow from "@/components/MainWindow.vue";
+import MainWindow from "@/components/Windows/MainWindow.vue";
 
 provide(themeKey, defaultTheme);
 </script>
