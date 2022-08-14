@@ -11,7 +11,7 @@ interface Props {
 
 defineProps<Props>();
 
-// TODO: Add SVG/Create using CSS icons for play/pause/stop
+// TODO: Add SVG icons for play/pause/stop
 </script>
 
 <template>

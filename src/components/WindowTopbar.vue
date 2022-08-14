@@ -29,9 +29,11 @@ defineEmits<Emits>();
     <ComponentOrPlaceholder>
       <IconButton
         class="window_topbar__button window_topbar__button--menu"
+        height="100%"
         v-if="!!$attrs.onMenuClick"
-        @click="$emit('MenuClick')"
+        :width="11"
         :icon="topbarMenuIcon"
+        @click="$emit('MenuClick')"
       />
     </ComponentOrPlaceholder>
     <DividerBar class="window_topbar__bar" />
@@ -42,25 +44,31 @@ defineEmits<Emits>();
     <ComponentOrPlaceholder>
       <IconButton
         class="window_topbar__button"
+        height="100%"
         v-if="!!$attrs.onMinimizeClick"
-        @click="$emit('MinimizeClick')"
+        :width="9"
         :icon="topbarMinimizeIcon"
+        @click="$emit('MinimizeClick')"
       />
     </ComponentOrPlaceholder>
     <ComponentOrPlaceholder>
       <IconButton
         class="window_topbar__button"
+        height="100%"
         v-if="!!$attrs.onMaximizeClick"
-        @click="$emit('MaximizeClick')"
+        :width="9"
         :icon="topbarMaximizeIcon"
+        @click="$emit('MaximizeClick')"
       />
     </ComponentOrPlaceholder>
     <ComponentOrPlaceholder>
       <IconButton
         class="window_topbar__button"
+        height="100%"
         v-if="!!$attrs.onCloseClick"
-        @click="$emit('CloseClick')"
+        :width="9"
         :icon="topbarCloseIcon"
+        @click="$emit('CloseClick')"
       />
     </ComponentOrPlaceholder>
   </nav>
@@ -76,13 +84,9 @@ defineEmits<Emits>();
   padding-right: 1px;
 
   &__button {
-    height: 100%;
-    width: 9px;
     margin-left: 1px;
-    user-select: none;
 
     &--menu {
-      width: 11px;
       margin-right: 2px;
     }
   }

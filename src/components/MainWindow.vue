@@ -5,6 +5,7 @@ import WindowBase from "@/components/WindowBase.vue";
 import ScreenBase from "@/components/ScreenBase.vue";
 import PlayState from "@/components/PlayState.vue";
 import RangeInput from "@/components/Input/RangeInput.vue";
+import ControlButtons from "@/components/ControlButtons.vue";
 import type { PlayStates } from "@/types/playStates";
 import type { Song } from "@/types/song";
 import { themeKey } from "@/keys";
@@ -71,6 +72,7 @@ const seeking = ref<string>("0");
         withGoldenThumb
       />
     </div>
+    <ControlButtons class="main_window__buttons" />
   </WindowBase>
 </template>
 
@@ -140,6 +142,7 @@ const seeking = ref<string>("0");
       }
       &--balance {
         margin-top: 10px;
+        margin-left: 6px;
         width: 38px;
       }
       &--seeking {
@@ -148,6 +151,10 @@ const seeking = ref<string>("0");
         margin-top: 5px;
       }
     }
+  }
+
+  &__buttons {
+    margin-top: 6px;
   }
 }
 </style>

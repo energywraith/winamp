@@ -63,9 +63,9 @@ defineProps<Props>();
       text-transform: uppercase;
       width: 8px;
       word-wrap: break-word;
-      font-size: 8px;
+      font-size: 7px;
       text-align: center;
-      line-height: 8px;
+      line-height: 7px;
       user-select: none;
       // Retro font is not 100% accurate with the original one
       font-family: "Retro";
