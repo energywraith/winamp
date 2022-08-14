@@ -24,6 +24,27 @@ provide(themeKey, defaultTheme);
     url(./assets/fonts/Retrocomputer-Regular.ttf) format("truetype");
 }
 
+@font-face {
+  font-family: "Postpixel";
+  src: local("Postpixel"),
+    url(./assets/fonts/Postpixel-Regular.woff) format("truetype");
+}
+
+@font-face {
+  font-family: "Pixelmix";
+  src: local("Pixelmix"),
+    url(./assets/fonts/Pixelmix-Regular.woff) format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Pixelmix";
+  src: local("Pixelmix"),
+    url(./assets/fonts/Pixelmix-Bold.woff) format("truetype");
+  font-weight: 700;
+}
+
 html,
 body {
   margin: 0;
@@ -45,5 +66,6 @@ body {
   padding: 50px;
   display: flex;
   justify-content: center;
+  user-select: none;
 }
 </style>
