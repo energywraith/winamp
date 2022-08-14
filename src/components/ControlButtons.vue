@@ -10,7 +10,7 @@ import stopIcon from "@/assets/control-buttons-stop.svg";
 import nextIcon from "@/assets/control-buttons-next.svg";
 import openFileIcon from "@/assets/control-buttons-open-file.svg";
 import toggleRepeatIcon from "@/assets/toggle-repeat-icon.svg";
-import logoIcon from "@/assets/logo.svg";
+import logoIcon from "@/assets/logo.png";
 
 const shuffle = ref<boolean>(false);
 const repeat = ref<boolean>(false);
@@ -112,10 +112,10 @@ const repeat = ref<boolean>(false);
     position: absolute;
     right: -4px;
     bottom: -4px;
-    opacity: 0.8;
+    opacity: 0.6;
 
     &:hover {
-      opacity: 1;
+      opacity: 0.8;
     }
   }
 }
