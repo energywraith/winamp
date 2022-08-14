@@ -83,16 +83,30 @@ input[type="range"] {
     height: 9px;
     border-radius: 0;
 
+    background: linear-gradient(
+        90deg,
+        #151521 15.63%,
+        #302e4b 44.79%,
+        #31304d 78.13%,
+        #1b1b2b 100%
+      ),
+      #312f4c;
+    box-shadow: 1px 0px 0px #59596d, -1px -1px 0px #1b1b2a, 1px -1px 0px #1b1b2a,
+      1px 1px 0px #59596d, 0px 1px 0px #59596d, -1px 1px 0px #1b1b2a;
+
     &::-webkit-slider-thumb {
       background: url(@/assets/input-range-thumb-gold.svg) no-repeat center
         center;
-      width: 30px;
+      width: 32px;
+      height: 32px;
       margin-top: 5px;
     }
     &::-moz-range-thumb {
       background: url(@/assets/input-range-thumb-gold.svg) no-repeat center
         center;
-      width: 30px;
+      width: 32px;
+      height: 32px;
+      margin-top: 5px;
     }
   }
 }
