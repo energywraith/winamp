@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { defineProps, defineEmits, ref, watch } from "vue";
+import { defineProps, defineEmits, ref } from "vue";
+import useModelValueUpdateCallback from "@/composables/modelValueUpdateCallback";
+
 interface Props {
   modelValue: string;
   withColoredTrack?: boolean;
@@ -18,17 +20,15 @@ const inputTrackColor = ref<string>(
   props.withColoredTrack ? "hsl(128, 100%, 35%)" : "transparent"
 );
 
-const onChange = (newValue: string) => {
-  emit("update:modelValue", newValue);
-};
+useModelValueUpdateCallback({
+  value: inputValue,
+  emit: emit,
+  callback: (newValue) => {
+    if (!props.withColoredTrack) return;
 
-watch(inputValue, (newValue) => {
-  onChange(newValue);
-
-  if (!props.withColoredTrack) return;
-
-  const h = 128 - (+newValue * 128) / 100;
-  inputTrackColor.value = `hsl(${h}, 100%, 35%)`;
+    const h = 128 - (+newValue * 128) / 100;
+    inputTrackColor.value = `hsl(${h}, 100%, 35%)`;
+  },
 });
 </script>
 
