@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { defineProps } from "vue";
-import classicBackground from "@/assets/control-buttons-button.svg";
 
 interface Props {
   icon: string;
@@ -23,11 +22,6 @@ defineProps<Props>();
       height: typeof height === 'number' ? height + 'px' : height,
     }"
   >
-    <img
-      class="icon_button__background"
-      :src="classicBackground"
-      v-if="withClassicBackground"
-    />
     <img :src="icon" class="icon_button__icon" />
   </button>
 </template>
@@ -45,13 +39,41 @@ defineProps<Props>();
   justify-content: center;
 
   &--with-background {
-    padding: 6px;
+    padding: 5px;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: #bdced6;
+      box-shadow: inset -1px -1px 0px #4a5a6b, inset 1px 1px 0px #adb5c6,
+        inset 2px 2px 0px #efffff, inset -1px -1px 0px #4a5a6b,
+        inset -2px -2px 0px #7b8494;
+    }
+
+    &:active {
+      & > * {
+        top: 1px;
+        left: 1px;
+      }
+
+      &::before {
+        box-shadow: inset 0px 0px 0px black, inset 2px 2px 0px black,
+          inset 2px 2px 0px #efffff, inset -1px -1px 0px #4a5a6b,
+          inset -2px -2px 0px #7b8494;
+        filter: brightness(0.7);
+      }
+    }
   }
 
   &__icon {
     position: relative;
     width: 100%;
     height: 100%;
+    pointer-events: none;
   }
 
   &__background {
