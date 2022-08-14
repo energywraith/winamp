@@ -228,7 +228,7 @@ const showPlaylist = ref<boolean>(false);
   }
 
   &__buttons {
-    margin-top: 10px;
+    margin-top: 4px;
   }
 
   &__row {
