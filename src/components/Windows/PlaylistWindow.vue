@@ -102,7 +102,7 @@ const playlist = reactive<Playlist>([
         </div>
       </ScreenBase>
     </PerfectScrollbar>
-    <div class="playlist_window__buttons">XXXXXXXXXXXX</div>
+    <div class="playlist_window__buttons"></div>
   </WindowBase>
 </template>
 
