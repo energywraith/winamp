@@ -3,12 +3,14 @@ import { provide } from "vue";
 import { defaultTheme } from "@/themes";
 import { themeKey } from "@/keys";
 import MainWindow from "@/components/Windows/MainWindow.vue";
+import PlaylistWindow from "@/components/Windows/PlaylistWindow.vue";
 
 provide(themeKey, defaultTheme);
 </script>
 
 <template>
   <MainWindow />
+  <PlaylistWindow />
 </template>
 
 <style lang="scss">
@@ -62,10 +64,64 @@ body {
 
 #app {
   height: 100%;
-  background: linear-gradient(180deg, #3f3d69 0%, #272643 100%);
+  background: url(@/assets/slav-bg.jpg) no-repeat center center;
+  background-size: cover;
   padding: 50px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   user-select: none;
+}
+
+.ps {
+  padding-right: 14px;
+
+  &__rail-x,
+  &__rail-y {
+    border: 1px solid #171723;
+    box-shadow: 1px 1px 0px rgba(109, 109, 128, 0.75),
+      inset 1px 1px 0px rgba(113, 113, 134, 0.65);
+    opacity: 1 !important;
+    width: 10px !important;
+
+    &::hover {
+      background-color: transparent !important;
+    }
+  }
+
+  &__rail-x:hover,
+  &__rail-y:hover,
+  &__rail-x.ps--clicking,
+  &__rail-y.ps--clicking {
+    background-color: transparent !important;
+  }
+
+  &__thumb-x,
+  &__thumb-y {
+    right: -1px !important;
+    width: 9px !important;
+    border-radius: 1px !important;
+    background: linear-gradient(
+      180deg,
+      #f5ebc7 0%,
+      #cfbf8f 78.64%,
+      #af9960 78.65%
+    ) !important;
+    box-shadow: inset 0px 1px 0px #755c22, inset 2px 2px 0px #dbcc9e,
+      inset -2px -2px 0px #000000 !important;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-65%, -50%);
+      width: 2px;
+      height: 90%;
+      background: #755c22;
+      box-shadow: 0px -2px 0px #ffffff, 0px 2px 0px #af9960;
+      border-radius: 1px;
+    }
+  }
 }
 </style>
