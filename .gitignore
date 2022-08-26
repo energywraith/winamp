@@ -1,11 +1,12 @@
 .DS_Store
 node_modules
-/dist
-
+dist
+server/views
 
 # local env files
 .env.local
 .env.*.local
+server/.env
 
 # Log files
 npm-debug.log*
