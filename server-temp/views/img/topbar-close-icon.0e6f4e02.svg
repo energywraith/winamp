@@ -1,0 +1,130 @@
+<svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="8" height="8" fill="#352D10"/>
+<rect width="4" height="4" fill="#463C15"/>
+<g style="mix-blend-mode:screen">
+<rect x="6" y="2" width="2" height="2" fill="#5A573A"/>
+</g>
+<g style="mix-blend-mode:screen">
+<rect x="2" y="6" width="2" height="2" fill="#5A573A"/>
+</g>
+<g style="mix-blend-mode:screen">
+<rect x="6" y="4" width="2" height="2" fill="#997442"/>
+</g>
+<g style="mix-blend-mode:screen">
+<rect x="4" y="6" width="2" height="2" fill="#997442"/>
+</g>
+<g style="mix-blend-mode:screen">
+<rect x="4" y="2" width="2" height="2" fill="#CCBB80" fill-opacity="0.23"/>
+</g>
+<g style="mix-blend-mode:screen">
+<rect x="2" y="4" width="2" height="2" fill="#CCBB80" fill-opacity="0.23"/>
+</g>
+<g style="mix-blend-mode:screen">
+<rect x="6" y="6" width="2" height="2" fill="white"/>
+</g>
+<g style="mix-blend-mode:screen">
+<rect width="2" height="2" fill="#6B5D43"/>
+</g>
+<g style="mix-blend-mode:screen">
+<rect x="2" y="2" width="2" height="2" fill="#B69D54"/>
+</g>
+<g style="mix-blend-mode:screen">
+<rect x="4" y="4" width="2" height="2" fill="#B69D54"/>
+</g>
+<rect width="8" height="8" transform="matrix(-1 0 0 1 14 0)" fill="#352D10"/>
+<rect width="4" height="4" transform="matrix(-1 0 0 1 14 0)" fill="#463C15"/>
+<g style="mix-blend-mode:screen">
+<rect width="2" height="2" transform="matrix(-1 0 0 1 8 2)" fill="#5A573A"/>
+</g>
+<g style="mix-blend-mode:screen">
+<rect width="2" height="2" transform="matrix(-1 0 0 1 12 6)" fill="#5A573A"/>
+</g>
+<g style="mix-blend-mode:screen">
+<rect width="2" height="2" transform="matrix(-1 0 0 1 8 4)" fill="#997442"/>
+</g>
+<g style="mix-blend-mode:screen">
+<rect width="2" height="2" transform="matrix(-1 0 0 1 10 6)" fill="#997442"/>
+</g>
+<g style="mix-blend-mode:screen">
+<rect width="2" height="2" transform="matrix(-1 0 0 1 10 2)" fill="#CCBB80" fill-opacity="0.23"/>
+</g>
+<g style="mix-blend-mode:screen">
+<rect width="2" height="2" transform="matrix(-1 0 0 1 12 4)" fill="#CCBB80" fill-opacity="0.23"/>
+</g>
+<g style="mix-blend-mode:screen">
+<rect width="2" height="2" transform="matrix(-1 0 0 1 8 6)" fill="white"/>
+</g>
+<g style="mix-blend-mode:screen">
+<rect width="2" height="2" transform="matrix(-1 0 0 1 14 0)" fill="#6B5D43"/>
+</g>
+<g style="mix-blend-mode:screen">
+<rect width="2" height="2" transform="matrix(-1 0 0 1 12 2)" fill="#B69D54"/>
+</g>
+<g style="mix-blend-mode:screen">
+<rect width="2" height="2" transform="matrix(-1 0 0 1 10 4)" fill="#B69D54"/>
+</g>
+<rect width="8" height="8" transform="matrix(1 0 0 -1 0 14)" fill="#352D10"/>
+<rect width="4" height="4" transform="matrix(1 0 0 -1 0 14)" fill="#463C15"/>
+<g style="mix-blend-mode:screen">
+<rect width="2" height="2" transform="matrix(1 0 0 -1 6 12)" fill="#5A573A"/>
+</g>
+<g style="mix-blend-mode:screen">
+<rect width="2" height="2" transform="matrix(1 0 0 -1 2 8)" fill="#5A573A"/>
+</g>
+<g style="mix-blend-mode:screen">
+<rect width="2" height="2" transform="matrix(1 0 0 -1 6 10)" fill="#997442"/>
+</g>
+<g style="mix-blend-mode:screen">
+<rect width="2" height="2" transform="matrix(1 0 0 -1 4 8)" fill="#997442"/>
+</g>
+<g style="mix-blend-mode:screen">
+<rect width="2" height="2" transform="matrix(1 0 0 -1 4 12)" fill="#CCBB80" fill-opacity="0.23"/>
+</g>
+<g style="mix-blend-mode:screen">
+<rect width="2" height="2" transform="matrix(1 0 0 -1 2 10)" fill="#CCBB80" fill-opacity="0.23"/>
+</g>
+<g style="mix-blend-mode:screen">
+<rect width="2" height="2" transform="matrix(1 0 0 -1 6 8)" fill="white"/>
+</g>
+<g style="mix-blend-mode:screen">
+<rect width="2" height="2" transform="matrix(1 0 0 -1 0 14)" fill="#6B5D43"/>
+</g>
+<g style="mix-blend-mode:screen">
+<rect width="2" height="2" transform="matrix(1 0 0 -1 2 12)" fill="#B69D54"/>
+</g>
+<g style="mix-blend-mode:screen">
+<rect width="2" height="2" transform="matrix(1 0 0 -1 4 10)" fill="#B69D54"/>
+</g>
+<rect x="14" y="14" width="8" height="8" transform="rotate(-180 14 14)" fill="#352D10"/>
+<rect x="14" y="14" width="4" height="4" transform="rotate(-180 14 14)" fill="#463C15"/>
+<g style="mix-blend-mode:screen">
+<rect x="8" y="12" width="2" height="2" transform="rotate(-180 8 12)" fill="#5A573A"/>
+</g>
+<g style="mix-blend-mode:screen">
+<rect x="12" y="8" width="2" height="2" transform="rotate(-180 12 8)" fill="#5A573A"/>
+</g>
+<g style="mix-blend-mode:screen">
+<rect x="8" y="10" width="2" height="2" transform="rotate(-180 8 10)" fill="#997442"/>
+</g>
+<g style="mix-blend-mode:screen">
+<rect x="10" y="8" width="2" height="2" transform="rotate(-180 10 8)" fill="#997442"/>
+</g>
+<g style="mix-blend-mode:screen">
+<rect x="10" y="12" width="2" height="2" transform="rotate(-180 10 12)" fill="#CCBB80" fill-opacity="0.23"/>
+</g>
+<g style="mix-blend-mode:screen">
+<rect x="12" y="10" width="2" height="2" transform="rotate(-180 12 10)" fill="#CCBB80" fill-opacity="0.23"/>
+</g>
+<g style="mix-blend-mode:screen">
+<rect x="8" y="8" width="2" height="2" transform="rotate(-180 8 8)" fill="white"/>
+</g>
+<g style="mix-blend-mode:screen">
+<rect x="14" y="14" width="2" height="2" transform="rotate(-180 14 14)" fill="#6B5D43"/>
+</g>
+<g style="mix-blend-mode:screen">
+<rect x="12" y="12" width="2" height="2" transform="rotate(-180 12 12)" fill="#B69D54"/>
+</g>
+<g style="mix-blend-mode:screen">
+<rect x="10" y="10" width="2" height="2" transform="rotate(-180 10 10)" fill="#B69D54"/>
+</g>
+</svg>
