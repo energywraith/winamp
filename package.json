@@ -8,7 +8,7 @@
     "server-install": "cd Server && npm install",
     "install": "concurrently \"npm run server-install\" \"npm run client-install\"",
     "dev": "concurrently \"cd Client && npm run serve\" \"cd Server && npm run dev\"",
-    "start": "rm -rf Server/views/* && cd Client && npm run build && cp -r dist/* ../Server/views && npm start"
+    "start": "rm -rf Server/views/* && cd Client && npm run build && cp -r dist/* ../Server/views && cd ../Server && npm start"
   },
   "author": "",
   "license": "ISC",
