@@ -4,7 +4,7 @@ const addSeparator = (text: string) => `${text} *** `;
 
 const useMarquee = (text: string) => {
   const marqueeText = ref<string>(addSeparator(text));
-  let timeoutRef: number | null = null;
+  let timeoutRef: ReturnType<typeof setTimeout> | null = null;
 
   const moveTextByCharacter = () => {
     const firstCharacter = marqueeText.value.slice(0, 1);
