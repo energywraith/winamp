@@ -64,7 +64,7 @@ body {
 
 #app {
   height: 100%;
-  background: url(@/assets/slav-bg.jpg) no-repeat center center;
+  background: url(@/assets/citypop-bg.jpg) no-repeat center center;
   background-size: cover;
   padding: 50px;
   display: flex;
