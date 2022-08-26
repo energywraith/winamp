@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "client-install": "cd Client && npm install",
-    "server-install": "cd Server && npm install",
+    "client-install": "cd client && npm install",
+    "server-install": "cd server && npm install",
     "install": "concurrently \"npm run server-install\" \"npm run client-install\"",
-    "dev": "concurrently \"cd Client && npm run serve\" \"cd Server && npm run dev\"",
-    "start": "rm -rf Server/views/* && cd Client && npm run build && cp -r dist/* ../Server/views && cd ../Server && npm start"
+    "dev": "concurrently \"cd client && npm run serve\" \"cd server && npm run dev\"",
+    "start": "rm -rf server/views/* && cd client && npm run build && cp -r dist/* ../server/views && cd ../server && npm start"
   },
   "author": "",
   "license": "ISC",

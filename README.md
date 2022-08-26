@@ -6,9 +6,9 @@ Remember the old good times when you used to listen to the legendary songs on yo
 
 The repository consists of two folders:
 
-**[Client](/Client)** - A Vue3 app with Composition API responsible for UI of this masterpiece.
+**[Client](/client)** - A Vue3 app with Composition API responsible for UI of this masterpiece.
 
-**[Server](/Server/)** - An Express app that provides streaming service to our Client, which is a masterpiece (I am not sure if I have mentioned it).
+**[Server](/server/)** - An Express app that provides streaming service to our Client, which is a masterpiece (I am not sure if I have mentioned it).
 
 ## Cool, but how do I launch this project locally?
 
