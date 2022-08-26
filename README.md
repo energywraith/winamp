@@ -1,29 +1,15 @@
-# winamp
+# Web winamp
 
-## Project setup
-```
-npm install
-```
+Remember the old good times when you used to listen to the legendary songs on your windows 95 using winamp? Well those times arent back, but we can pretend that this is the case thank to **WEB WINAMP 9999**. You can use winamp anytime and anywhere, all you need is a web browser and a little bit of internet connection :flushed:.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Project structure
 
-### Compiles and minifies for production
-```
-npm run build
-```
+The repository consists of two folders:
 
-### Run your unit tests
-```
-npm run test:unit
-```
+**[Client](/Client)** - A Vue3 app with Composition API responsible for UI of this masterpiece.
 
-### Lints and fixes files
-```
-npm run lint
-```
+**[Server](/Server/)** - An Express app that provides streaming service to our Client.
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Cool, but how do I launch this project locally?
+
+I dont know yet, but we will manage to do it I hope. Atleast I hope we will...
