@@ -1,18 +1,15 @@
-import express, { Express, Request, Response } from 'express';
-import dotenv from 'dotenv';
+import express from 'express';
+import dotenv from "dotenv"
+import path from 'path'
 
 dotenv.config();
 
-const app: Express = express();
+const app = express();
 const port = process.env.PORT;
-const path = __dirname + '/app/views/';
+const view = path.join(__dirname, "../views");
 
-app.use(express.static(path));
-
-app.get('/', (req: Request, res: Response) => {
-  res.sendFile(path + "index.html");
-});
+app.use(express.static(view));
 
 app.listen(port, () => {
-  console.log(`[server]: Server is running at https://localhost:${port}`);
+  console.log(`[server]: Server is running at http://localhost:${port}`);
 });
