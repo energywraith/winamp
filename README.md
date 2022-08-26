@@ -8,8 +8,11 @@ The repository consists of two folders:
 
 **[Client](/Client)** - A Vue3 app with Composition API responsible for UI of this masterpiece.
 
-**[Server](/Server/)** - An Express app that provides streaming service to our Client.
+**[Server](/Server/)** - An Express app that provides streaming service to our Client, which is a masterpiece (I am not sure if I have mentioned it).
 
 ## Cool, but how do I launch this project locally?
 
-I dont know yet, but we will manage to do it I hope. Atleast I hope we will...
+I dont know yet, but we will manage to do it. Atleast I hope we will...
+
+<br />
+<sub>Ok, I know this project is not a masterpiece, but what if we could make it a masterpiece together? If you see something that is heresy, feel to free to raise issue or contact me someway :D</sub>
