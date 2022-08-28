@@ -1,16 +1,10 @@
-import express from 'express';
+import app from './app';
 import dotenv from 'dotenv';
-
-import path from 'path';
 
 dotenv.config();
 
-const app = express();
-const port = process.env.PORT;
-const view = path.join(__dirname, '../views');
+const PORT = process.env.PORT || 3000;
 
-app.use(express.static(view));
-
-app.listen(port, () => {
-  console.log(`[server]: Server is running at http://localhost:${port}`);
+app.listen(PORT, () => {
+  console.log(`[server]: Server is running at http://localhost:${PORT}`);
 });
