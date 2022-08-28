@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, inject, reactive } from "vue";
+import { ref, inject, watch } from "vue";
 import useMarquee from "@/composables/marquee";
 import WindowBase from "@/components/WindowBase.vue";
 import ScreenBase from "@/components/ScreenBase.vue";
@@ -9,33 +9,49 @@ import RangeInput from "@/components/Input/RangeInput.vue";
 import MonoStereo from "@/components/MonoStereo.vue";
 import CheckboxInput from "@/components/Input/CheckboxInput.vue";
 import ControlButtons from "@/components/ControlButtons.vue";
-import type { PlayStates } from "@/types/playStates";
-import type { Song } from "@/types/song";
-import { themeKey } from "@/keys";
 import getFullSongName from "@/utils/getFullSongName";
 import formatTime from "@/utils/formatTime";
+import parseSecondsToMinutes from "@/utils/parseSecondsToMinutes";
+import usePlayer from "@/composables/player";
+import { themeKey } from "@/keys";
+import type { PlayStates } from "@/types/playStates";
+import type { Song } from "@/types/song";
 
 const theme = inject(themeKey);
 
-const song: Song = reactive({
-  duration: "3:05",
-  author: "Linkin Park",
-  name: "A Place For My Head",
-});
+const player = usePlayer();
 
 const playState = ref<PlayStates>("pause");
-const marqueeText = useMarquee(getFullSongName(song));
+const currentSong = ref<Song | null>(null);
 
-const volume = ref<string>("0");
-const balance = ref<string>("0");
-const seeking = ref<string>("0");
+const fullSongName = ref("");
+const marqueeText = useMarquee(fullSongName);
+
+const minutes = ref<number>(0);
+const seconds = ref<number>(0);
 const kbps = ref<number>(192);
 const kHz = ref<number>(44);
-const minutes = ref<number>(1);
-const seconds = ref<number>(15);
 
 const showEqualizer = ref<boolean>(false);
 const showPlaylist = ref<boolean>(false);
+
+watch(player.state.currentSongSeeking, (time) => {
+  const parsedTime = parseSecondsToMinutes(parseInt(time));
+
+  minutes.value = parsedTime.minutes;
+  seconds.value = parsedTime.seconds;
+});
+
+const seekingInputOnChange = ref<(() => void) | undefined>(undefined);
+
+watch(player.state.isPlaying, (isPlaying) => {
+  seekingInputOnChange.value = isPlaying ? player.methods.resume : undefined;
+});
+
+watch(player.state.currentSong, (newSong) => {
+  currentSong.value = newSong;
+  fullSongName.value = getFullSongName(currentSong.value as Song);
+});
 </script>
 
 <template>
@@ -74,13 +90,17 @@ const showPlaylist = ref<boolean>(false);
         <div class="main_window__row">
           <RangeInput
             class="range_input range_input--volume"
-            v-model="volume"
+            v-model="player.state.volume"
+            @input="player.methods.setVolume"
             withColoredTrack
+            withCustomChangeEvent
           />
           <RangeInput
             class="range_input range_input--balance"
-            v-model="balance"
+            v-model="player.state.balance"
+            @input="player.methods.setBalance"
             withColoredTrack
+            withCustomChangeEvent
           />
           <CheckboxInput
             v-model="showEqualizer"
@@ -99,8 +119,12 @@ const showPlaylist = ref<boolean>(false);
     </div>
     <RangeInput
       class="range_input range_input--seeking"
-      v-model="seeking"
+      v-model="player.state.currentSongSeeking"
+      @input="player.methods.setPlayingTime"
+      @change="seekingInputOnChange"
+      :max="player.state.currentSong.value?.durationInSeconds"
       withGoldenThumb
+      withCustomChangeEvent
     />
     <ControlButtons class="main_window__buttons" />
   </WindowBase>

@@ -1,9 +1,10 @@
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, onMounted, onUnmounted, watch } from "vue";
+import type { Ref } from "vue";
 
 const addSeparator = (text: string) => `${text} *** `;
 
-const useMarquee = (text: string) => {
-  const marqueeText = ref<string>(addSeparator(text));
+const useMarquee = (text: Ref<string>) => {
+  const marqueeText = ref<string>(addSeparator(text.value));
   let timeoutRef: ReturnType<typeof setTimeout> | null = null;
 
   const moveTextByCharacter = () => {
@@ -20,6 +21,10 @@ const useMarquee = (text: string) => {
 
   onMounted(() => {
     startAnimation();
+
+    watch(text, (newText) => {
+      marqueeText.value = addSeparator(newText);
+    });
   });
 
   onUnmounted(() => {

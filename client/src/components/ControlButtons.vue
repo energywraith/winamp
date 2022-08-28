@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref } from "vue";
 import IconButton from "@/components/IconButton.vue";
 import CheckboxInput from "@/components/Input/CheckboxInput.vue";
+import usePlayer from "@/composables/player";
 
 import previousIcon from "@/assets/control-buttons-previous.svg";
 import playIcon from "@/assets/control-buttons-play.svg";
@@ -12,8 +12,7 @@ import openFileIcon from "@/assets/control-buttons-open-file.svg";
 import toggleRepeatIcon from "@/assets/toggle-repeat-icon.svg";
 import logoIcon from "@/assets/logo.png";
 
-const shuffle = ref<boolean>(false);
-const repeat = ref<boolean>(false);
+const player = usePlayer();
 </script>
 
 <template>
@@ -24,6 +23,7 @@ const repeat = ref<boolean>(false);
       :icon="previousIcon"
       :width="23"
       :height="19"
+      @click="player.methods.previous()"
     />
     <IconButton
       class="control_buttons__button"
@@ -31,6 +31,7 @@ const repeat = ref<boolean>(false);
       :icon="playIcon"
       :width="23"
       :height="19"
+      @click="player.methods.resume()"
     />
     <IconButton
       class="control_buttons__button"
@@ -38,6 +39,7 @@ const repeat = ref<boolean>(false);
       :icon="pauseIcon"
       :width="23"
       :height="19"
+      @click="player.methods.pause()"
     />
     <IconButton
       class="control_buttons__button"
@@ -45,6 +47,7 @@ const repeat = ref<boolean>(false);
       :icon="stopIcon"
       :width="23"
       :height="19"
+      @click="player.methods.stop()"
     />
     <IconButton
       class="control_buttons__button"
@@ -52,6 +55,7 @@ const repeat = ref<boolean>(false);
       :icon="nextIcon"
       :width="23"
       :height="19"
+      @click="player.methods.skip()"
     />
     <IconButton
       class="control_buttons__button control_buttons__button--open-file"
@@ -59,17 +63,20 @@ const repeat = ref<boolean>(false);
       :icon="openFileIcon"
       :width="22"
       :height="17"
+      @click="player.methods.openFile()"
     />
     <CheckboxInput
-      v-model="shuffle"
+      v-model="player.state.shuffleMode.value"
       name="shuffle"
       label="shuffle"
       class="control_buttons__button control_buttons__button--shuffle"
+      @click="player.methods.toggleShuffleMode()"
     />
     <CheckboxInput
-      v-model="repeat"
+      v-model="player.state.repeatMode.value"
       name="repeat"
       class="control_buttons__button control_buttons__button--repeat"
+      @click="player.methods.toggleRepeatMode()"
     >
       <img :src="toggleRepeatIcon" width="10" height="6" />
     </CheckboxInput>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, defineProps, withDefaults } from "vue";
+import { inject, defineProps, withDefaults, defineEmits } from "vue";
 import WindowTopbar from "@/components/WindowTopbar.vue";
 import { themeKey } from "@/keys";
 
@@ -9,23 +9,27 @@ interface Props {
   name?: string;
 }
 
+interface Emits {
+  onMenuClick?: () => void;
+  onMinimizeClick?: () => void;
+  onMaximizeClick?: () => void;
+  onCloseClick?: () => void;
+}
+
 withDefaults(defineProps<Props>(), {
   name: "Unknown window",
 });
-
-const mockFunction = () => {
-  console.log("TODO");
-};
+defineEmits<Emits>();
 </script>
 
 <template>
   <div class="window_base">
     <WindowTopbar
       :name="name"
-      @menu-click="mockFunction"
-      @minimize-click="mockFunction"
-      @maximize-click="mockFunction"
-      @close-click="mockFunction"
+      @menu-click="$emit('MenuClick')"
+      @minimize-click="$emit('MinimizeClick')"
+      @maximize-click="$emit('MaximizeClick')"
+      @close-click="$emit('CloseClick')"
     />
     <div class="window_base__content">
       <slot />

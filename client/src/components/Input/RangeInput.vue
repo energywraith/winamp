@@ -1,42 +1,57 @@
 <script setup lang="ts">
 import { defineProps, defineEmits, ref } from "vue";
+import type { Ref } from "vue";
 import useModelValueUpdateCallback from "@/composables/modelValueUpdateCallback";
 
 interface Props {
-  modelValue: string;
+  modelValue: Ref<string>;
+  max?: string;
   withColoredTrack?: boolean;
   withGoldenThumb?: boolean;
+  withCustomChangeEvent?: boolean;
 }
 
 interface Emits {
   (e: "update:modelValue", value: string): void;
+  (e: "input", value: string): void;
+  (e: "change"): void;
 }
 
 const props = defineProps<Props>();
 const emit = defineEmits<Emits>();
 
-const inputValue = ref<string>("0");
 const inputTrackColor = ref<string>(
   props.withColoredTrack ? "hsl(128, 100%, 35%)" : "transparent"
 );
 
 useModelValueUpdateCallback({
-  value: inputValue,
-  emit: emit,
+  value: props.modelValue,
   callback: (newValue) => {
     if (!props.withColoredTrack) return;
 
-    const h = 128 - (+newValue * 128) / 100;
+    const h = (+newValue * 128) / 100;
     inputTrackColor.value = `hsl(${h}, 100%, 35%)`;
   },
 });
+
+const onChange = (e: Event) => {
+  if (props.withCustomChangeEvent) {
+    emit("input", (e.target as HTMLInputElement).value);
+    return;
+  }
+
+  emit("update:modelValue", (e.target as HTMLInputElement).value);
+};
 </script>
 
 <template>
   <input
     type="range"
-    v-model="inputValue"
+    :value="modelValue.value"
+    @input="onChange"
     :class="{ 'with-golden-thumb': withGoldenThumb }"
+    :max="max"
+    @change="emit('change')"
   />
 </template>
 

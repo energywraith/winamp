@@ -1,12 +1,17 @@
 <script setup lang="ts">
-import { defineProps, ref } from "vue";
+import { defineProps, defineEmits, ref } from "vue";
 import type { Playlist } from "@/types/playlist";
 
 interface Props {
   playlist: Playlist;
 }
 
+interface Emits {
+  onPlaySong: () => void;
+}
+
 defineProps<Props>();
+defineEmits<Emits>();
 
 const focusedSongId = ref<string | null>(null);
 
@@ -14,11 +19,6 @@ const setFocusedSongId = (songId: string) => {
   if (!songId) return;
 
   focusedSongId.value = songId;
-};
-
-// Probably there will be injected playSong method
-const playSong = (songId: string) => {
-  console.log(songId);
 };
 </script>
 
@@ -32,7 +32,7 @@ const playSong = (songId: string) => {
       ]"
       :key="song.name"
       @click="() => setFocusedSongId(song.id)"
-      @dblclick="() => playSong(song.id)"
+      @dblclick="$emit('PlaySong', song.id)"
     >
       <span>{{ index + 1 }}. </span>
       <span class="song_list__song__name">

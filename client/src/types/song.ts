@@ -1,6 +1,8 @@
 export type Song = {
   id: string;
-  duration: string;
+  durationInSeconds: string;
   author: string;
   name: string;
+  youtubeId?: string;
+  playbackURL?: string;
 };
