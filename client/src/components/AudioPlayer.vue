@@ -8,10 +8,10 @@ const player = usePlayer();
 const audioRef = ref<VNodeRef | null>(null);
 const audioURL = ref("");
 
-player.methods.play("https://www.youtube.com/watch?v=oIm-GQml3ew");
-
 onMounted(() => {
   player.state.audioRef = audioRef;
+
+  player.methods.play("https://www.youtube.com/watch?v=oIm-GQml3ew");
 
   watch(player.state.currentSong, (currentSong) => {
     audioURL.value = currentSong?.playbackURL || "";
