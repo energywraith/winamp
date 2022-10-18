@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import IconButton from "@/components/IconButton.vue";
 import CheckboxInput from "@/components/Input/CheckboxInput.vue";
-import usePlayer from "@/composables/player";
 
+import toggleRepeatIcon from "@/assets/toggle-repeat-icon.svg";
 import previousIcon from "@/assets/control-buttons-previous.svg";
 import playIcon from "@/assets/control-buttons-play.svg";
 import pauseIcon from "@/assets/control-buttons-pause.svg";
 import stopIcon from "@/assets/control-buttons-stop.svg";
 import nextIcon from "@/assets/control-buttons-next.svg";
 import openFileIcon from "@/assets/control-buttons-open-file.svg";
-import toggleRepeatIcon from "@/assets/toggle-repeat-icon.svg";
 import logoIcon from "@/assets/logo.png";
+import { usePlayerStore } from "@/stores/player";
 
-const player = usePlayer();
+const playerStore = usePlayerStore();
 </script>
 
 <template>
@@ -23,7 +23,7 @@ const player = usePlayer();
       :icon="previousIcon"
       :width="23"
       :height="19"
-      @click="player.methods.previous()"
+      @click="playerStore.previous()"
     />
     <IconButton
       class="control_buttons__button"
@@ -31,7 +31,7 @@ const player = usePlayer();
       :icon="playIcon"
       :width="23"
       :height="19"
-      @click="player.methods.resume()"
+      @click="playerStore.resume()"
     />
     <IconButton
       class="control_buttons__button"
@@ -39,7 +39,7 @@ const player = usePlayer();
       :icon="pauseIcon"
       :width="23"
       :height="19"
-      @click="player.methods.pause()"
+      @click="playerStore.pause()"
     />
     <IconButton
       class="control_buttons__button"
@@ -47,7 +47,7 @@ const player = usePlayer();
       :icon="stopIcon"
       :width="23"
       :height="19"
-      @click="player.methods.stop()"
+      @click="playerStore.stop()"
     />
     <IconButton
       class="control_buttons__button"
@@ -55,7 +55,7 @@ const player = usePlayer();
       :icon="nextIcon"
       :width="23"
       :height="19"
-      @click="player.methods.skip()"
+      @click="playerStore.skip()"
     />
     <IconButton
       class="control_buttons__button control_buttons__button--open-file"
@@ -63,20 +63,19 @@ const player = usePlayer();
       :icon="openFileIcon"
       :width="22"
       :height="17"
-      @click="player.methods.openFile()"
     />
     <CheckboxInput
-      v-model="player.state.shuffleMode.value"
+      v-model="playerStore.shuffleMode"
       name="shuffle"
       label="shuffle"
       class="control_buttons__button control_buttons__button--shuffle"
-      @click="player.methods.toggleShuffleMode()"
+      @click="playerStore.toggleShuffleMode()"
     />
     <CheckboxInput
-      v-model="player.state.repeatMode.value"
+      v-model="playerStore.repeatMode"
       name="repeat"
       class="control_buttons__button control_buttons__button--repeat"
-      @click="player.methods.toggleRepeatMode()"
+      @click="playerStore.toggleRepeatMode()"
     >
       <img :src="toggleRepeatIcon" width="10" height="6" />
     </CheckboxInput>

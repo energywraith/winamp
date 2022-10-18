@@ -5,9 +5,6 @@ import { themeKey } from "@/keys";
 import MainWindow from "@/components/Windows/MainWindow.vue";
 import PlaylistWindow from "@/components/Windows/PlaylistWindow.vue";
 import AudioPlayer from "@/components/AudioPlayer.vue";
-import usePlayer from "@/composables/player";
-
-usePlayer(true);
 
 provide(themeKey, defaultTheme);
 </script>

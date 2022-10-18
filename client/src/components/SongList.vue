@@ -39,7 +39,7 @@ const setFocusedSongId = (songId: string) => {
         {{ song.name }}
       </span>
       <span class="song_list__song__duration">
-        {{ song.duration }}
+        {{ song.durationInSeconds }}
       </span>
     </li>
   </ol>

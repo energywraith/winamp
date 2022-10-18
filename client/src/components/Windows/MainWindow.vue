@@ -12,46 +12,66 @@ import ControlButtons from "@/components/ControlButtons.vue";
 import getFullSongName from "@/utils/getFullSongName";
 import formatTime from "@/utils/formatTime";
 import parseSecondsToMinutes from "@/utils/parseSecondsToMinutes";
-import usePlayer from "@/composables/player";
 import { themeKey } from "@/keys";
 import type { PlayStates } from "@/types/playStates";
 import type { Song } from "@/types/song";
 
+import { usePlayerStore } from "@/stores/player";
+
+const playerStore = usePlayerStore();
+
 const theme = inject(themeKey);
 
-const player = usePlayer();
-
 const playState = ref<PlayStates>("pause");
-const currentSong = ref<Song | null>(null);
 
 const fullSongName = ref("");
 const marqueeText = useMarquee(fullSongName);
 
-const minutes = ref<number>(0);
-const seconds = ref<number>(0);
-const kbps = ref<number>(192);
-const kHz = ref<number>(44);
+const minutes = ref(0);
+const seconds = ref(0);
+const kbps = ref(192);
+const kHz = ref(44);
 
-const showEqualizer = ref<boolean>(false);
-const showPlaylist = ref<boolean>(false);
+const formValues = {
+  volume: ref("0"),
+  seeking: ref("0"),
+};
 
-watch(player.state.currentSongSeeking, (time) => {
-  const parsedTime = parseSecondsToMinutes(parseInt(time));
+const showEqualizer = ref(false);
+const showPlaylist = ref(false);
 
-  minutes.value = parsedTime.minutes;
-  seconds.value = parsedTime.seconds;
-});
+watch(
+  () => playerStore.seeking,
+  (seeking) => {
+    formValues.seeking.value = seeking;
 
-const seekingInputOnChange = ref<(() => void) | undefined>(undefined);
+    const parsedTime = parseSecondsToMinutes(parseInt(seeking));
 
-watch(player.state.isPlaying, (isPlaying) => {
-  seekingInputOnChange.value = isPlaying ? player.methods.resume : undefined;
-});
+    minutes.value = parsedTime.minutes;
+    seconds.value = parsedTime.seconds;
+  }
+);
 
-watch(player.state.currentSong, (newSong) => {
-  currentSong.value = newSong;
-  fullSongName.value = getFullSongName(currentSong.value as Song);
-});
+watch(
+  () => playerStore.volume,
+  (volume) => {
+    formValues.volume.value = volume;
+  }
+);
+
+watch(
+  () => playerStore.currentSong,
+  (currentSong) => {
+    fullSongName.value = getFullSongName(currentSong as Song);
+  }
+);
+
+const onSeekingEnd = () => {
+  if (playerStore.resumeOnSeekingEnd) {
+    playerStore.resume();
+    playerStore.resumeOnSeekingEnd = undefined;
+  }
+};
 </script>
 
 <template>
@@ -90,18 +110,18 @@ watch(player.state.currentSong, (newSong) => {
         <div class="main_window__row">
           <RangeInput
             class="range_input range_input--volume"
-            v-model="player.state.volume"
-            @input="player.methods.setVolume"
+            v-model="formValues.volume"
+            @input="playerStore.setVolume"
             withColoredTrack
             withCustomChangeEvent
           />
-          <RangeInput
+          <!-- <RangeInput
             class="range_input range_input--balance"
             v-model="player.state.balance"
             @input="player.methods.setBalance"
             withColoredTrack
             withCustomChangeEvent
-          />
+          /> -->
           <CheckboxInput
             v-model="showEqualizer"
             name="equalizer"
@@ -119,10 +139,10 @@ watch(player.state.currentSong, (newSong) => {
     </div>
     <RangeInput
       class="range_input range_input--seeking"
-      v-model="player.state.currentSongSeeking"
-      @input="player.methods.setPlayingTime"
-      @change="seekingInputOnChange"
-      :max="player.state.currentSong.value?.durationInSeconds"
+      v-model="formValues.seeking"
+      @input="playerStore.setPlayingTime"
+      @change="onSeekingEnd"
+      :max="playerStore.currentSong?.durationInSeconds"
       withGoldenThumb
       withCustomChangeEvent
     />

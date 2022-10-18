@@ -2,9 +2,9 @@
 import WindowBase from "@/components/WindowBase.vue";
 import ScreenBase from "@/components/ScreenBase.vue";
 import SongList from "@/components/SongList.vue";
-import usePlayer from "@/composables/player";
+import { usePlaylistStore } from "@/stores/playlist";
 
-const player = usePlayer();
+const playlistStore = usePlaylistStore();
 </script>
 
 <template>
@@ -12,7 +12,7 @@ const player = usePlayer();
     <PerfectScrollbar>
       <ScreenBase class="playlist_window__screen_base">
         <div class="playlist_window__song_list">
-          <SongList :playlist="player.state.playlist.value" />
+          <SongList :playlist="playlistStore.playlist" />
         </div>
       </ScreenBase>
     </PerfectScrollbar>
