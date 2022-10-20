@@ -4,6 +4,10 @@ import type { Song } from "@/types/song";
 import useYtdl from "@/services/ytdl";
 import { usePlayerStore } from "./player";
 
+// Currently song.id is based on youtube Id of the video,
+// youtubeId is not always unique(if we add 2 songs to playlist),
+// which will probably cause bugs
+
 export const usePlaylistStore = defineStore("playlist", {
   state: () => ({
     playlist: [] as Playlist,

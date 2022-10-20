@@ -24,11 +24,6 @@ onMounted(() => {
   );
 
   watch(
-    () => playerStore.currentSongIndex,
-    (e) => console.log(e)
-  );
-
-  watch(
     () => playlistStore.getCurrentSongDetails,
     (newSong) => {
       if (!newSong) {
@@ -45,16 +40,16 @@ onMounted(() => {
   );
 
   watch(
-    () => [playerStore.isPlaying, audioRef.value],
-    ([isPlaying, audio]) => {
-      if (!audio) return;
+    () => playerStore.isPlaying,
+    (isPlaying) => {
+      if (!audioRef.value) return;
 
       if (isPlaying) {
-        audio.play();
+        audioRef.value.play();
         return;
       }
 
-      audio.pause();
+      audioRef.value.pause();
     }
   );
 
@@ -70,10 +65,25 @@ onMounted(() => {
 
 const timeUpdate = (event: Event) =>
   playerStore.setSeeking((event.target as HTMLAudioElement).currentTime);
+
+const onDataLoaded = () => {
+  if (playerStore.isPlaying) {
+    audioRef.value.play();
+    return;
+  }
+
+  audioRef.value.pause();
+};
 </script>
 
 <template>
-  <audio v-if="audioURL" ref="audioRef" @timeupdate="timeUpdate">
+  <audio
+    v-if="audioURL"
+    ref="audioRef"
+    @timeupdate="timeUpdate"
+    @ended="playerStore.skip"
+    @loadeddata="onDataLoaded"
+  >
     <source :src="audioURL" />
   </audio>
 </template>

@@ -40,7 +40,6 @@ export const usePlayerStore = defineStore("player", {
       }
 
       this.currentSongIndex++;
-      this.isPlaying = false;
     },
     previous() {
       if (!this.currentSongIndex || this.currentSongIndex <= 0) {
@@ -48,7 +47,6 @@ export const usePlayerStore = defineStore("player", {
       }
 
       this.currentSongIndex--;
-      this.isPlaying = false;
     },
     setPlayingTime(time: string) {
       this.seeking = time;

@@ -34,6 +34,7 @@ const playSong = (id: string) => {
 
   &__song_list {
     width: 100%;
+    height: 100%;
   }
 
   &__buttons {
@@ -44,6 +45,6 @@ const playSong = (id: string) => {
 }
 
 .ps {
-  height: 160px;
+  height: 60px;
 }
 </style>

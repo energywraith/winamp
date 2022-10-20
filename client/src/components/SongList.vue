@@ -55,7 +55,6 @@ const setFocusedSongId = (songId: string) => {
   line-height: 13px;
   list-style: none;
   width: 100%;
-  padding: 4px 0;
 
   &__song {
     display: flex;

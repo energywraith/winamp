@@ -29,8 +29,6 @@ useModelValueUpdateCallback({
   callback: (newValue) => {
     if (!props.withColoredTrack) return;
 
-    console.log(newValue);
-
     const h = (+newValue * 128) / 100;
     inputTrackColor.value = `hsl(${h}, 100%, 35%)`;
   },
