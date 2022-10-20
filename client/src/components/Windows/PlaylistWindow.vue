@@ -23,6 +23,7 @@ const playlistStore = usePlaylistStore();
 <style lang="scss">
 .playlist_window {
   &__screen_base {
+    height: 100%;
   }
 
   &__song_list {

@@ -1,12 +1,11 @@
-import { Song } from "@/types/song";
 import { defineStore } from "pinia";
-import useYtdl from "@/services/ytdl";
-import { VNodeRef } from "vue";
+import type { VNodeRef } from "vue";
+import { usePlaylistStore } from "@/stores/playlist";
 
 export const usePlayerStore = defineStore("player", {
   state: () => ({
-    currentSong: null as Song | null,
     playerRef: null as VNodeRef | null,
+    currentSongIndex: null as number | null,
     isPlaying: false,
     shuffleMode: false,
     repeatMode: false,
@@ -16,13 +15,6 @@ export const usePlayerStore = defineStore("player", {
   }),
   getters: {},
   actions: {
-    async play(id: string) {
-      this.currentSong = null;
-      this.stop();
-
-      const { getAudioURL } = useYtdl();
-      this.currentSong = (await getAudioURL(id)) as Song;
-    },
     resume() {
       this.isPlaying = true;
     },
@@ -32,6 +24,22 @@ export const usePlayerStore = defineStore("player", {
     stop() {
       this.pause();
       this.setPlayingTime("0");
+    },
+    skip() {
+      const playlistStore = usePlaylistStore();
+
+      if (!this.currentSongIndex) return;
+
+      if (this.currentSongIndex > playlistStore.playlist.length - 1) {
+        this.currentSongIndex = 0;
+        return;
+      }
+
+      this.currentSongIndex++;
+    },
+    previous() {
+      if (!this.currentSongIndex || this.currentSongIndex <= 0) return;
+      this.currentSongIndex--;
     },
     setPlayingTime(time: string) {
       this.seeking = time;
@@ -53,12 +61,6 @@ export const usePlayerStore = defineStore("player", {
     },
     setPlayerRef(ref: VNodeRef) {
       this.playerRef = ref;
-    },
-    skip() {
-      //
-    },
-    previous() {
-      //
     },
     toggleShuffleMode() {
       //

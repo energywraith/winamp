@@ -2,18 +2,23 @@
 import { ref, onMounted, watch } from "vue";
 import type { VNodeRef } from "vue";
 import { usePlayerStore } from "@/stores/player";
+import { usePlaylistStore } from "@/stores/playlist";
 
 const playerStore = usePlayerStore();
+const playlistStore = usePlaylistStore();
 
 const audioRef = ref<VNodeRef | null>(null);
 const audioURL = ref("");
 
 onMounted(() => {
   playerStore.setPlayerRef(audioRef);
-  playerStore.play("https://www.youtube.com/watch?v=oIm-GQml3ew");
+
+  playlistStore.addSongToPlaylist(
+    "https://www.youtube.com/watch?v=oIm-GQml3ew"
+  );
 
   watch(
-    () => playerStore.currentSong,
+    () => playlistStore.getCurrentSongDetails,
     (newSong) => {
       if (!newSong) {
         audioURL.value = "";
@@ -49,7 +54,7 @@ const timeUpdate = (event: Event) =>
 
 <template>
   <audio v-if="audioURL" ref="audioRef" @timeupdate="timeUpdate">
-    <source :src="playerStore.currentSong?.playbackURL" />
+    <source :src="audioURL" />
   </audio>
 </template>
 
