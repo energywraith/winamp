@@ -9,23 +9,27 @@ interface Props {
 }
 
 interface Emits {
-  onPlaySong: () => void;
+  (e: "playSong", value: string): void;
 }
 
 defineProps<Props>();
-defineEmits<Emits>();
+const emit = defineEmits<Emits>();
 
 const focusedSongId = ref<string | null>(null);
 
-const setFocusedSongId = (songId: string) => {
-  if (!songId) return;
+const setFocusedSongId = (songId: string | null) => {
+  if (songId && songId === focusedSongId.value) {
+    emit("playSong", songId);
+  }
 
   focusedSongId.value = songId;
 };
+
+const onBlur = () => setFocusedSongId(null);
 </script>
 
 <template>
-  <ol class="song_list">
+  <ol class="song_list" @click.self="onBlur">
     <li
       v-for="(song, index) in playlist"
       :class="[
@@ -34,7 +38,6 @@ const setFocusedSongId = (songId: string) => {
       ]"
       :key="song.name"
       @click="() => setFocusedSongId(song.id)"
-      @dblclick="$emit('PlaySong', song.id)"
     >
       <span>{{ index + 1 }}. </span>
       <span class="song_list__song__name">
@@ -55,6 +58,7 @@ const setFocusedSongId = (songId: string) => {
   line-height: 13px;
   list-style: none;
   width: 100%;
+  height: 100%;
 
   &__song {
     display: flex;

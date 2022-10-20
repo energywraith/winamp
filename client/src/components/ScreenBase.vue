@@ -57,6 +57,7 @@ defineProps<Props>();
   &__content {
     position: relative;
     display: flex;
+    height: 100%;
 
     &__side_letters {
       color: #435166;
