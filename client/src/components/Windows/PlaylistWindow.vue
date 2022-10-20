@@ -2,9 +2,15 @@
 import WindowBase from "@/components/WindowBase.vue";
 import ScreenBase from "@/components/ScreenBase.vue";
 import SongList from "@/components/SongList.vue";
+import { usePlayerStore } from "@/stores/player";
 import { usePlaylistStore } from "@/stores/playlist";
 
+const playerStore = usePlayerStore();
 const playlistStore = usePlaylistStore();
+
+const playSong = (id: string) => {
+  playerStore.setCurrentSongIndex(playlistStore.getSongIndex(id));
+};
 </script>
 
 <template>
@@ -12,7 +18,7 @@ const playlistStore = usePlaylistStore();
     <PerfectScrollbar>
       <ScreenBase class="playlist_window__screen_base">
         <div class="playlist_window__song_list">
-          <SongList :playlist="playlistStore.playlist" />
+          <SongList :playlist="playlistStore.playlist" @playSong="playSong" />
         </div>
       </ScreenBase>
     </PerfectScrollbar>

@@ -5,15 +5,20 @@ import { usePlaylistStore } from "@/stores/playlist";
 export const usePlayerStore = defineStore("player", {
   state: () => ({
     playerRef: null as VNodeRef | null,
-    currentSongIndex: null as number | null,
+    currentSongIndex: 0 as number | null,
     isPlaying: false,
     shuffleMode: false,
     repeatMode: false,
-    volume: "0",
+    volume: 100,
+    balance: 100,
     seeking: "0",
     resumeOnSeekingEnd: undefined as boolean | undefined,
   }),
-  getters: {},
+  getters: {
+    getVolume(): number {
+      return +this.volume / 100;
+    },
+  },
   actions: {
     resume() {
       this.isPlaying = true;
@@ -26,20 +31,24 @@ export const usePlayerStore = defineStore("player", {
       this.setPlayingTime("0");
     },
     skip() {
+      if (typeof this.currentSongIndex !== "number") return;
+
       const playlistStore = usePlaylistStore();
 
-      if (!this.currentSongIndex) return;
-
-      if (this.currentSongIndex > playlistStore.playlist.length - 1) {
-        this.currentSongIndex = 0;
+      if (this.currentSongIndex >= playlistStore.playlist.length - 1) {
         return;
       }
 
       this.currentSongIndex++;
+      this.isPlaying = false;
     },
     previous() {
-      if (!this.currentSongIndex || this.currentSongIndex <= 0) return;
+      if (!this.currentSongIndex || this.currentSongIndex <= 0) {
+        return;
+      }
+
       this.currentSongIndex--;
+      this.isPlaying = false;
     },
     setPlayingTime(time: string) {
       this.seeking = time;
@@ -53,14 +62,21 @@ export const usePlayerStore = defineStore("player", {
       if (!this.playerRef) return;
       this.playerRef.currentTime = +time;
     },
-    setVolume(volume: string) {
+    setVolume(volume: number) {
       this.volume = volume;
+    },
+    setBalance(balance: number) {
+      this.balance = balance;
     },
     setSeeking(time: number) {
       this.seeking = time.toString();
     },
     setPlayerRef(ref: VNodeRef) {
       this.playerRef = ref;
+    },
+    setCurrentSongIndex(index: number) {
+      this.isPlaying = false;
+      this.currentSongIndex = index;
     },
     toggleShuffleMode() {
       //

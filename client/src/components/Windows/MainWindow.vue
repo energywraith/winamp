@@ -17,8 +17,10 @@ import type { PlayStates } from "@/types/playStates";
 import type { Song } from "@/types/song";
 
 import { usePlayerStore } from "@/stores/player";
+import { usePlaylistStore } from "@/stores/playlist";
 
 const playerStore = usePlayerStore();
+const playlistStore = usePlaylistStore();
 
 const theme = inject(themeKey);
 
@@ -33,7 +35,8 @@ const kbps = ref(192);
 const kHz = ref(44);
 
 const formValues = {
-  volume: ref("0"),
+  volume: ref(playerStore.volume),
+  balance: ref(playerStore.balance),
   seeking: ref("0"),
 };
 
@@ -60,7 +63,14 @@ watch(
 );
 
 watch(
-  () => playerStore.currentSong,
+  () => playerStore.balance,
+  (balance) => {
+    formValues.balance.value = balance;
+  }
+);
+
+watch(
+  () => playlistStore.getCurrentSongDetails,
   (currentSong) => {
     fullSongName.value = getFullSongName(currentSong as Song);
   }
@@ -85,7 +95,7 @@ const onSeekingEnd = () => {
         <div class="screen_base__content">
           <PlayState :state="playState" />
           <div class="screen_base__content__timer">
-            {{ formatTime(minutes, seconds) }}
+            {{ formatTime({ minutes, seconds }) }}
           </div>
           <SoundVisualizer class="screen_base__content__visualizer" />
         </div>
@@ -115,13 +125,13 @@ const onSeekingEnd = () => {
             withColoredTrack
             withCustomChangeEvent
           />
-          <!-- <RangeInput
+          <RangeInput
             class="range_input range_input--balance"
-            v-model="player.state.balance"
-            @input="player.methods.setBalance"
+            v-model="formValues.balance"
+            @input="playerStore.setBalance"
             withColoredTrack
             withCustomChangeEvent
-          /> -->
+          />
           <CheckboxInput
             v-model="showEqualizer"
             name="equalizer"
@@ -142,7 +152,7 @@ const onSeekingEnd = () => {
       v-model="formValues.seeking"
       @input="playerStore.setPlayingTime"
       @change="onSeekingEnd"
-      :max="playerStore.currentSong?.durationInSeconds"
+      :max="playlistStore.getCurrentSongDetails?.durationInSeconds"
       withGoldenThumb
       withCustomChangeEvent
     />

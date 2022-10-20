@@ -15,11 +15,14 @@ export const usePlaylistStore = defineStore("playlist", {
     getCurrentSongDetails(): Song | null {
       const playerStore = usePlayerStore();
 
-      if (!playerStore.currentSongIndex) {
+      if (typeof playerStore.currentSongIndex !== "number") {
         return null;
       }
 
       return this.getSongDetails(playerStore.currentSongIndex);
+    },
+    getSongIndex(state): (id: string) => number {
+      return (id) => state.playlist.findIndex((song) => song.id === id);
     },
   },
   actions: {
@@ -31,6 +34,9 @@ export const usePlaylistStore = defineStore("playlist", {
     },
     removeSongFromPlaylist(id: string) {
       this.playlist = this.playlist.filter((song) => song.id !== id);
+    },
+    clearPlaylist() {
+      this.playlist = [];
     },
   },
 });

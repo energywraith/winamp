@@ -4,7 +4,7 @@ import type { Ref } from "vue";
 import useModelValueUpdateCallback from "@/composables/modelValueUpdateCallback";
 
 interface Props {
-  modelValue: Ref<string>;
+  modelValue: Ref<string> | Ref<number>;
   max?: string;
   withColoredTrack?: boolean;
   withGoldenThumb?: boolean;
@@ -29,6 +29,8 @@ useModelValueUpdateCallback({
   callback: (newValue) => {
     if (!props.withColoredTrack) return;
 
+    console.log(newValue);
+
     const h = (+newValue * 128) / 100;
     inputTrackColor.value = `hsl(${h}, 100%, 35%)`;
   },
@@ -48,9 +50,9 @@ const onChange = (e: Event) => {
   <input
     type="range"
     :value="modelValue.value"
-    @input="onChange"
     :class="{ 'with-golden-thumb': withGoldenThumb }"
     :max="max"
+    @input="onChange"
     @change="emit('change')"
   />
 </template>

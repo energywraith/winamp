@@ -7,5 +7,5 @@ export default (song: Song) => {
 
   const { minutes, seconds } = parseSecondsToMinutes(+song.durationInSeconds);
 
-  return `${song.author} (${formatTime(minutes, seconds)}) - ${song.name}`;
+  return `${song.author} (${formatTime({ minutes, seconds })}) - ${song.name}`;
 };

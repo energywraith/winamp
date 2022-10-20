@@ -13,8 +13,19 @@ const audioURL = ref("");
 onMounted(() => {
   playerStore.setPlayerRef(audioRef);
 
+  playlistStore.clearPlaylist();
+
   playlistStore.addSongToPlaylist(
     "https://www.youtube.com/watch?v=oIm-GQml3ew"
+  );
+
+  playlistStore.addSongToPlaylist(
+    "https://www.youtube.com/watch?v=bMT684v8YD8"
+  );
+
+  watch(
+    () => playerStore.currentSongIndex,
+    (e) => console.log(e)
   );
 
   watch(
@@ -44,6 +55,15 @@ onMounted(() => {
       }
 
       audio.pause();
+    }
+  );
+
+  watch(
+    () => playerStore.getVolume,
+    (volume) => {
+      if (!audioRef.value) return;
+
+      audioRef.value.volume = volume;
     }
   );
 });

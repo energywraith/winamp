@@ -1,6 +1,7 @@
 interface Props {
   videoId: string;
   videoDetails: {
+    videoId: string;
     title: string;
     lengthSeconds: string;
     author?: {
@@ -13,7 +14,7 @@ interface Props {
 }
 
 const parseSong = (songData: Props) => ({
-  id: songData.videoId,
+  id: songData.videoDetails.videoId,
   durationInSeconds: songData.videoDetails.lengthSeconds,
   author: songData.videoDetails.author?.name,
   name: songData.videoDetails.title,

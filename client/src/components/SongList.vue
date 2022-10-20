@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { defineProps, defineEmits, ref } from "vue";
 import type { Playlist } from "@/types/playlist";
+import parseSecondsToMinutes from "@/utils/parseSecondsToMinutes";
+import formatTime from "@/utils/formatTime";
 
 interface Props {
   playlist: Playlist;
@@ -39,7 +41,7 @@ const setFocusedSongId = (songId: string) => {
         {{ song.name }}
       </span>
       <span class="song_list__song__duration">
-        {{ song.durationInSeconds }}
+        {{ formatTime(parseSecondsToMinutes(+song.durationInSeconds)) }}
       </span>
     </li>
   </ol>
