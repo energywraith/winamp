@@ -3,7 +3,7 @@ import addBaseURL from "@/utils/addBaseURL";
 import parseSong from "@/utils/parseSong";
 import parseYoutubeId from "@/utils/parseYoutubeId";
 
-const baseURL = "http://localhost:8000/api/youtube";
+const baseURL = "api/youtube";
 
 const useYtdl = () => {
   const getAudioURL = async (songURLOrId: string) => {
