@@ -1,12 +1,14 @@
 import { defineStore } from "pinia";
 import type { VNodeRef } from "vue";
 import { usePlaylistStore } from "@/stores/playlist";
+import { PlayStates } from "@/types/playStates";
 
 export const usePlayerStore = defineStore("player", {
   state: () => ({
     playerRef: null as VNodeRef | null,
     currentSongIndex: 0 as number | null,
     isPlaying: false,
+    playState: "STOPPED" as PlayStates,
     shuffleMode: false,
     repeatMode: false,
     volume: 100,
@@ -22,13 +24,16 @@ export const usePlayerStore = defineStore("player", {
   actions: {
     resume() {
       this.isPlaying = true;
+      this.playState = "PLAYING";
     },
     pause() {
       this.isPlaying = false;
+      this.playState = "PAUSED";
     },
     stop() {
       this.pause();
       this.setPlayingTime("0");
+      this.playState = "STOPPED";
     },
     skip() {
       if (typeof this.currentSongIndex !== "number") return;

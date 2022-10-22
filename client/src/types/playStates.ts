@@ -1,1 +1,1 @@
-export type PlayStates = "play" | "pause" | "stop";
+export type PlayStates = "PAUSED" | "STOPPED" | "PLAYING";

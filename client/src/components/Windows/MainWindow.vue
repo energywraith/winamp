@@ -13,7 +13,6 @@ import getFullSongName from "@/utils/getFullSongName";
 import formatTime from "@/utils/formatTime";
 import parseSecondsToMinutes from "@/utils/parseSecondsToMinutes";
 import { themeKey } from "@/keys";
-import type { PlayStates } from "@/types/playStates";
 import type { Song } from "@/types/song";
 
 import { usePlayerStore } from "@/stores/player";
@@ -23,8 +22,6 @@ const playerStore = usePlayerStore();
 const playlistStore = usePlaylistStore();
 
 const theme = inject(themeKey);
-
-const playState = ref<PlayStates>("pause");
 
 const fullSongName = ref("");
 const marqueeText = useMarquee(fullSongName);
@@ -93,7 +90,7 @@ const onSeekingEnd = () => {
       >
         <template #sideLetters>0AIDV</template>
         <div class="screen_base__content">
-          <PlayState :state="playState" />
+          <PlayState :state="playerStore.playState" />
           <div class="screen_base__content__timer">
             {{ formatTime({ minutes, seconds }) }}
           </div>
