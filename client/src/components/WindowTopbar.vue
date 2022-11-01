@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defineProps, defineEmits } from "vue";
 import DividerBar from "@/components/DividerBar.vue";
-import IconButton from "@/components/IconButton.vue";
+import ButtonComponent from "@/components/ButtonComponent.vue";
 import ComponentOrPlaceholder from "@/components/ComponentOrPlaceholder.vue";
 
 import topbarMenuIcon from "@/assets/topbar-menu-icon.svg";
@@ -27,7 +27,8 @@ defineEmits<Emits>();
 <template>
   <nav class="window_topbar">
     <ComponentOrPlaceholder>
-      <IconButton
+      <ButtonComponent
+        type="icon"
         class="window_topbar__button window_topbar__button--menu"
         height="100%"
         v-if="!!$attrs.onMenuClick"
@@ -42,7 +43,8 @@ defineEmits<Emits>();
     </div>
     <DividerBar class="window_topbar__bar" />
     <ComponentOrPlaceholder>
-      <IconButton
+      <ButtonComponent
+        type="icon"
         class="window_topbar__button"
         height="100%"
         v-if="!!$attrs.onMinimizeClick"
@@ -52,7 +54,8 @@ defineEmits<Emits>();
       />
     </ComponentOrPlaceholder>
     <ComponentOrPlaceholder>
-      <IconButton
+      <ButtonComponent
+        type="icon"
         class="window_topbar__button"
         height="100%"
         v-if="!!$attrs.onMaximizeClick"
@@ -62,7 +65,8 @@ defineEmits<Emits>();
       />
     </ComponentOrPlaceholder>
     <ComponentOrPlaceholder>
-      <IconButton
+      <ButtonComponent
+        type="icon"
         class="window_topbar__button"
         height="100%"
         v-if="!!$attrs.onCloseClick"

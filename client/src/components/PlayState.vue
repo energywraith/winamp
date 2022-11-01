@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, inject, watch } from "vue";
+import { defineProps, inject } from "vue";
 import type { PlayStates } from "@/types/playStates";
 import { themeKey } from "@/keys";
 import PlayPNG from "@/assets/play-state-play.png";
@@ -12,7 +12,7 @@ interface Props {
   state: PlayStates;
 }
 
-const props = defineProps<Props>();
+defineProps<Props>();
 
 // TODO: Add SVG icons for play/pause/stop
 </script>

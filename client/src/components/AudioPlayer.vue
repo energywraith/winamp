@@ -19,10 +19,6 @@ onMounted(() => {
     "https://www.youtube.com/watch?v=oIm-GQml3ew"
   );
 
-  playlistStore.addSongToPlaylist(
-    "https://www.youtube.com/watch?v=bMT684v8YD8"
-  );
-
   watch(
     () => playlistStore.getCurrentSongDetails,
     (newSong) => {

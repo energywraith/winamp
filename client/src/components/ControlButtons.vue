@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import IconButton from "@/components/IconButton.vue";
 import CheckboxInput from "@/components/Input/CheckboxInput.vue";
+import ButtonComponent from "@/components/ButtonComponent.vue";
 
 import toggleRepeatIcon from "@/assets/toggle-repeat-icon.svg";
 import previousIcon from "@/assets/control-buttons-previous.svg";
@@ -17,7 +17,8 @@ const playerStore = usePlayerStore();
 
 <template>
   <div class="control_buttons">
-    <IconButton
+    <ButtonComponent
+      type="icon"
       class="control_buttons__button"
       withClassicBackground
       :icon="previousIcon"
@@ -25,7 +26,8 @@ const playerStore = usePlayerStore();
       :height="19"
       @click="playerStore.previous()"
     />
-    <IconButton
+    <ButtonComponent
+      type="icon"
       class="control_buttons__button"
       withClassicBackground
       :icon="playIcon"
@@ -33,7 +35,8 @@ const playerStore = usePlayerStore();
       :height="19"
       @click="playerStore.resume()"
     />
-    <IconButton
+    <ButtonComponent
+      type="icon"
       class="control_buttons__button"
       withClassicBackground
       :icon="pauseIcon"
@@ -41,7 +44,8 @@ const playerStore = usePlayerStore();
       :height="19"
       @click="playerStore.pause()"
     />
-    <IconButton
+    <ButtonComponent
+      type="icon"
       class="control_buttons__button"
       withClassicBackground
       :icon="stopIcon"
@@ -49,7 +53,8 @@ const playerStore = usePlayerStore();
       :height="19"
       @click="playerStore.stop()"
     />
-    <IconButton
+    <ButtonComponent
+      type="icon"
       class="control_buttons__button"
       withClassicBackground
       :icon="nextIcon"
@@ -57,7 +62,8 @@ const playerStore = usePlayerStore();
       :height="19"
       @click="playerStore.skip()"
     />
-    <IconButton
+    <ButtonComponent
+      type="icon"
       class="control_buttons__button control_buttons__button--open-file"
       withClassicBackground
       :icon="openFileIcon"

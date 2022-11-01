@@ -2,6 +2,7 @@
 import WindowBase from "@/components/WindowBase.vue";
 import ScreenBase from "@/components/ScreenBase.vue";
 import SongList from "@/components/SongList.vue";
+import ButtonComponent from "@/components/ButtonComponent.vue";
 import { usePlayerStore } from "@/stores/player";
 import { usePlaylistStore } from "@/stores/playlist";
 
@@ -22,25 +23,28 @@ const playSong = (id: string) => {
         </div>
       </ScreenBase>
     </PerfectScrollbar>
-    <div class="playlist_window__buttons"></div>
+    <div class="playlist_window__buttons">
+      <ButtonComponent type="text" :height="18" withClassicBackground withMenu
+        >ADD</ButtonComponent
+      >
+    </div>
   </WindowBase>
 </template>
 
 <style lang="scss">
 .playlist_window {
-  &__screen_base {
-    height: 100%;
-  }
-
   &__song_list {
     width: 100%;
     height: 100%;
+    min-height: 60px;
   }
 
   &__buttons {
-    margin-top: 10px;
-    height: 10px;
+    margin-top: 6px;
+    height: 20px;
     font-size: 10px;
+    display: flex;
+    column-gap: 6px;
   }
 }
 
