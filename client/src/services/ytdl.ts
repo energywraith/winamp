@@ -10,12 +10,16 @@ const useYtdl = () => {
     try {
       const parsedId = parseYoutubeId(songURLOrId);
 
-      const audio = await fetch(addBaseURL(`audioURL/${parsedId}`, baseURL));
-      const { data } = await audio.json();
+      const response = await fetch(addBaseURL(`audioURL/${parsedId}`, baseURL));
 
-      return parseSong(data) as Song;
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+
+      const audio = await response.json();
+      return parseSong(audio.data) as Song;
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
   };
 

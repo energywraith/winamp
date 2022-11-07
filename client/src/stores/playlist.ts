@@ -32,9 +32,18 @@ export const usePlaylistStore = defineStore("playlist", {
   actions: {
     async addSongToPlaylist(id: string) {
       const { getAudioURL } = useYtdl();
-      const song = (await getAudioURL(id)) as Song;
 
-      this.playlist = [...this.playlist, song];
+      try {
+        const song = (await getAudioURL(id)) as Song;
+
+        if (!song) {
+          return;
+        }
+
+        this.playlist = [...this.playlist, song];
+      } catch (error) {
+        console.log(error);
+      }
     },
     removeSongFromPlaylist(id: string) {
       this.playlist = this.playlist.filter((song) => song.id !== id);

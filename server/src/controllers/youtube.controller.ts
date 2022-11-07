@@ -6,12 +6,13 @@ const controller = Router();
 
 controller.get('/audioURL/:id', async (request, response) => {
   const songId = encodeURI(request.params.id);
-  const audio = (await youtubeService.getAudioFromId(songId)) as videoFormat;
 
   try {
+    const audio = (await youtubeService.getAudioFromId(songId)) as videoFormat;
+
     response.json({ data: audio });
   } catch (error) {
-    console.log(error);
+    response.sendStatus(404);
   }
 });
 
