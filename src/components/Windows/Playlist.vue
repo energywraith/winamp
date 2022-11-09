@@ -37,13 +37,13 @@ const handleClick = (event: MouseEvent) => menuRef.value.showMenu(event, true);
 
 <template>
   <WindowBase name="Winamp Playlist" class="playlist_window">
-    <PerfectScrollbar>
+    <Scrollbar>
       <ScreenBase class="playlist_window__screen_base">
         <div class="playlist_window__song_list">
           <SongList :playlist="playlistStore.playlist" @playSong="playSong" />
         </div>
       </ScreenBase>
-    </PerfectScrollbar>
+    </Scrollbar>
     <div class="playlist_window__buttons">
       <ButtonComponent
         type="text"
