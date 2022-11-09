@@ -1,18 +1,28 @@
 {
   "name": "winamp",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
   "scripts": {
-    "client-install": "cd client && npm install",
-    "server-install": "cd server && npm install",
-    "install": "concurrently \"npm run server-install\" \"npm run client-install\"",
-    "dev": "concurrently \"cd client && npm run serve\" \"cd server && npm run dev\"",
-    "start": "rm -rf server/views/* && cd client && npm run build && cp -r dist/* ../server/views && cd ../server && npm start"
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
   },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "concurrently": "^7.3.0"
+  "devDependencies": {
+    "@nuxtjs/eslint-config-typescript": "^11.0.0",
+    "@pinia/nuxt": "^0.4.3",
+    "@typescript-eslint/eslint-plugin": "^5.42.1",
+    "@typescript-eslint/parser": "^5.42.1",
+    "eslint": "^8.27.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-vue": "^9.7.0",
+    "nuxt": "3.0.0-rc.13",
+    "sass": "^1.56.1",
+    "sass-loader": "10",
+    "typescript": "^4.8.4",
+    "vue3-perfect-scrollbar": "^1.6.1",
+    "ytdl-core": "^4.11.2"
   }
 }
