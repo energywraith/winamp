@@ -32,11 +32,11 @@ defineEmits<Emits>();
         @click="$emit('MenuClick')"
       />
     </ComponentOrPlaceholder>
-    <DividerBar class="window_topbar__bar" />
+    <DividerBar class="window_topbar__bar" height="7px" />
     <div class="window_topbar__text">
       {{ name }}
     </div>
-    <DividerBar class="window_topbar__bar" />
+    <DividerBar class="window_topbar__bar" height="7px" />
     <ComponentOrPlaceholder>
       <ButtonComponent
         type="icon"
