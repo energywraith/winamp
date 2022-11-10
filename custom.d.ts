@@ -8,8 +8,8 @@ declare module "*.svg" {
 
 declare module "pinia" {
   export interface DefineStoreOptionsBase<S, Store> {
-    syncWithLocalStorage?: {
-      storeAs: string;
+    persistentState?: {
+      storeAs?: string;
       stateKey?: keyof StoreState<Store>;
     };
   }
