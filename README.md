@@ -14,7 +14,7 @@ Remember the old good times when you used to listen to the legendary songs on yo
 - Boring libraries
 ```
 
-## Transition to Nuxt 3 from Express
+## Transition from Express to Nuxt 3
 
 During the development of the application, I noticed that the express on the backend actually just complicates the code of my application. The backend is very simple, its only task at the moment is to download songs using Ytdl, which is impossible on the client side.
 
@@ -54,6 +54,8 @@ Locally preview production build:
 npm run preview
 ```
 
-<br>
+### Known Issues:
+
+* Does not work on Safari
 
 ### Do you see anything that could be refined? Let me know, I will be happy to hear!
