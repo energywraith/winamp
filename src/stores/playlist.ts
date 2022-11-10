@@ -51,4 +51,8 @@ export const usePlaylistStore = defineStore("playlist", {
       this.playlist = [];
     },
   },
+  syncWithLocalStorage: {
+    storeAs: "playlist",
+    stateKey: "playlist",
+  },
 });

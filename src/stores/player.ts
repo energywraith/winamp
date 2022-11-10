@@ -10,7 +10,7 @@ export const usePlayerStore = defineStore("player", {
     playState: "STOPPED" as PlayStates,
     shuffleMode: false,
     repeatMode: false,
-    volume: 100,          
+    volume: 100,
     balance: 100,
     seeking: "0",
     resumeOnSeekingEnd: undefined as boolean | undefined,
@@ -40,6 +40,8 @@ export const usePlayerStore = defineStore("player", {
       const playlistStore = usePlaylistStore();
 
       if (this.currentSongIndex >= playlistStore.playlist.length - 1) {
+        this.currentSongIndex = 0;
+        this.stop();
         return;
       }
 

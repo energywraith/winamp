@@ -13,6 +13,7 @@ const playlistStore = usePlaylistStore();
 
 const playSong = (id: string) => {
   playerStore.setCurrentSongIndex(playlistStore.getSongIndex(id));
+  playerStore.resume();
 };
 
 const addOptions = [

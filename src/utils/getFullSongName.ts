@@ -2,7 +2,7 @@ import type { Song } from "@/types/song";
 import { parseSecondsToMinutes } from "@/utils/parseSecondsToMinutes";
 import { formatTime } from "@/utils/formatTime";
 
-export const getFullSongName = (song: Song) => {
+export const getFullSongName = (song: Song | null) => {
   if (!song) return "";
 
   const { minutes, seconds } = parseSecondsToMinutes(+song.durationInSeconds);

@@ -31,38 +31,48 @@ const formValues = {
 const showEqualizer = ref(false);
 const showPlaylist = ref(false);
 
-watch(
-  () => playerStore.seeking,
-  (seeking) => {
-    formValues.seeking.value = seeking;
+const updateSongName = (song: Song | null) => {
+  fullSongName.value = getFullSongName(song);
+};
 
-    const parsedTime = parseSecondsToMinutes(parseInt(seeking));
+onMounted(() => {
+  watch(
+    () => playerStore.seeking,
+    (seeking) => {
+      formValues.seeking.value = seeking;
 
-    minutes.value = parsedTime.minutes;
-    seconds.value = parsedTime.seconds;
+      const parsedTime = parseSecondsToMinutes(parseInt(seeking));
+
+      minutes.value = parsedTime.minutes;
+      seconds.value = parsedTime.seconds;
+    }
+  );
+
+  watch(
+    () => playerStore.volume,
+    (volume) => {
+      formValues.volume.value = volume;
+    }
+  );
+
+  watch(
+    () => playerStore.balance,
+    (balance) => {
+      formValues.balance.value = balance;
+    }
+  );
+
+  if (playlistStore.getCurrentSongDetails) {
+    updateSongName(playlistStore.getCurrentSongDetails);
   }
-);
 
-watch(
-  () => playerStore.volume,
-  (volume) => {
-    formValues.volume.value = volume;
-  }
-);
-
-watch(
-  () => playerStore.balance,
-  (balance) => {
-    formValues.balance.value = balance;
-  }
-);
-
-watch(
-  () => playlistStore.getCurrentSongDetails,
-  (currentSong) => {
-    fullSongName.value = getFullSongName(currentSong as Song);
-  }
-);
+  watch(
+    () => playlistStore.getCurrentSongDetails,
+    (currentSong) => {
+      updateSongName(currentSong);
+    }
+  );
+});
 
 const onSeekingEnd = () => {
   if (playerStore.resumeOnSeekingEnd) {

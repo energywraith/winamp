@@ -3,6 +3,7 @@ import type { VNodeRef } from "vue";
 
 import { usePlayerStore } from "@/stores/player";
 import { usePlaylistStore } from "@/stores/playlist";
+import { Song } from "~/types/song";
 
 const playerStore = usePlayerStore();
 const playlistStore = usePlaylistStore();
@@ -10,24 +11,27 @@ const playlistStore = usePlaylistStore();
 const audioRef = ref<VNodeRef | null>(null);
 const audioURL = ref("");
 
+const playSong = (newSong: Song | null) => {
+  if (!newSong) {
+    audioURL.value = "";
+    return;
+  }
+
+  audioURL.value = newSong?.playbackURL || "";
+
+  if (audioRef.value) {
+    audioRef.value.load();
+  }
+};
+
 onMounted(() => {
   playerStore.setPlayerRef(audioRef);
 
-  watch(
-    () => playlistStore.getCurrentSongDetails,
-    (newSong) => {
-      if (!newSong) {
-        audioURL.value = "";
-        return;
-      }
+  if (playlistStore.getCurrentSongDetails) {
+    playSong(playlistStore.getCurrentSongDetails);
+  }
 
-      audioURL.value = newSong?.playbackURL || "";
-
-      if (audioRef.value) {
-        audioRef.value.load();
-      }
-    }
-  );
+  watch(() => playlistStore.getCurrentSongDetails, playSong);
 
   watch(
     () => playerStore.isPlaying,
