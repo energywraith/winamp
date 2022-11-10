@@ -54,7 +54,7 @@ Locally preview production build:
 npm run preview
 ```
 
-### Known Issues:
+## Known Issues:
 
 * Does not work on Safari
 
