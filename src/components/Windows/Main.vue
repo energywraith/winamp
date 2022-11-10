@@ -169,6 +169,7 @@ const onSeekingEnd = () => {
           color: #00fa00;
           font-family: "PostPixel";
           margin-left: auto;
+          margin-top: auto;
           font-size: 14px;
           letter-spacing: 1px;
         }
