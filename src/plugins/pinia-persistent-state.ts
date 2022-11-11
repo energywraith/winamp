@@ -1,10 +1,12 @@
-import { StateTree } from "@pinia/nuxt/dist/runtime/composables";
 import { PiniaPluginContext } from "pinia";
+import { StateTree } from "@pinia/nuxt/dist/runtime/composables";
 
 function PiniaPersistentState({ options, store }: PiniaPluginContext) {
   if (options.persistentState) {
     const { storeAs: storageKey, stateKey } = options.persistentState;
-    const cookie = useCookie(storageKey || store.$id);
+    const cookie = useCookie(storageKey || store.$id, {
+      maxAge: 31536000,
+    });
 
     if (cookie.value) {
       if (stateKey) {
