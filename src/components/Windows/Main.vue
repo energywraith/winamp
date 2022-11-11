@@ -7,6 +7,7 @@ import { usePlaylistStore } from "@/stores/playlist";
 import { parseSecondsToMinutes } from "@/utils/parseSecondsToMinutes";
 import { formatTime } from "@/utils/formatTime";
 import { getFullSongName } from "@/utils/getFullSongName";
+import { getPageTitle } from "~/utils/getPageTitle";
 
 const playerStore = usePlayerStore();
 const playlistStore = usePlaylistStore();
@@ -36,6 +37,19 @@ const updateSongName = (song: Song | null) => {
 };
 
 onMounted(() => {
+  watch(
+    () =>
+      [playerStore.isPlaying, playlistStore.getCurrentSongDetails] as [
+        boolean,
+        Song | null
+      ],
+    ([isPlaying, currentSong]) => {
+      useHead({
+        title: getPageTitle(isPlaying ? currentSong?.name : undefined),
+      });
+    }
+  );
+
   watch(
     () => playerStore.seeking,
     (seeking) => {

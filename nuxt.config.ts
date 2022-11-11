@@ -1,5 +1,7 @@
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 
+import { getPageTitle } from "./src/utils/getPageTitle";
+
 export default defineNuxtConfig({
   srcDir: "src/",
   modules: [
@@ -12,6 +14,7 @@ export default defineNuxtConfig({
   ],
   app: {
     head: {
+      title: getPageTitle(),
       link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
     },
   },
