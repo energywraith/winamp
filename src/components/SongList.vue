@@ -15,17 +15,33 @@ interface Emits {
 defineProps<Props>();
 const emit = defineEmits<Emits>();
 
-const focusedSongId = ref<string | null>(null);
+const selectedSongs = ref<string[]>([]);
 
-const setFocusedSongId = (songId: string | null) => {
-  if (songId && songId === focusedSongId.value) {
-    emit("playSong", songId);
-  }
-
-  focusedSongId.value = songId;
+const playSong = (songId: string) => {
+  emit("playSong", songId);
 };
 
-const onBlur = () => setFocusedSongId(null);
+const setFocusedSongs = (songId: string, withCtrl?: boolean) => {
+  if (withCtrl) {
+    if (selectedSongs.value.includes(songId)) {
+      selectedSongs.value = selectedSongs.value.filter((id) => id !== songId);
+      return;
+    }
+
+    selectedSongs.value = [...selectedSongs.value, songId];
+    return;
+  }
+
+  selectedSongs.value = [songId];
+};
+
+const onBlur = () => {
+  selectedSongs.value = [];
+};
+
+defineExpose({
+  selectedSongs,
+});
 </script>
 
 <template>
@@ -34,10 +50,13 @@ const onBlur = () => setFocusedSongId(null);
       v-for="(song, index) in playlist"
       :class="[
         'song_list__song',
-        { 'song_list__song--focused': song.id === focusedSongId },
+        { 'song_list__song--focused': selectedSongs.includes(song.id) },
       ]"
       :key="song.name"
-      @click="() => setFocusedSongId(song.id)"
+      @click="() => setFocusedSongs(song.id)"
+      @dblclick="() => playSong(song.id)"
+      @click.ctrl="() => setFocusedSongs(song.id, true)"
+      @contextmenu.prevent="() => setFocusedSongs(song.id, true)"
     >
       <span>{{ index + 1 }}. </span>
       <span class="song_list__song__name">
@@ -59,6 +78,7 @@ const onBlur = () => setFocusedSongId(null);
   list-style: none;
   width: 100%;
   height: 100%;
+  flex: 1;
 
   &__song {
     display: flex;

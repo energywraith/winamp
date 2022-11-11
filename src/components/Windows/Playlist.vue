@@ -5,8 +5,11 @@ import type { VNodeRef } from "vue";
 
 import { matchYoutubeLinkRegex } from "@/utils/youtubeLinkRegex";
 import { matchYoutubeIdRegex } from "@/utils/youtubeIdRegex";
+import type { ContextMenuOption } from "@/types/contextMenuOption";
 
+const songListRef = ref<VNodeRef | null>(null);
 const menuRef = ref<VNodeRef | null>(null);
+const contextMenuOptions = ref<ContextMenuOption[]>([]);
 
 const playerStore = usePlayerStore();
 const playlistStore = usePlaylistStore();
@@ -16,7 +19,18 @@ const playSong = (id: string) => {
   playerStore.resume();
 };
 
+// TODO: Move options to external file
 const addOptions = [
+  {
+    name: "Add file(s)",
+    onClick: () => {},
+    disabled: true,
+  },
+  {
+    name: "Add folder",
+    onClick: () => {},
+    disabled: true,
+  },
   {
     name: "Add URL",
     onClick: () => {
@@ -33,7 +47,30 @@ const addOptions = [
   },
 ];
 
-const handleClick = (event: MouseEvent) => menuRef.value.showMenu(event, true);
+const removeOptions = [
+  {
+    name: "Remove selected",
+    onClick: () => {
+      songListRef.value?.selectedSongs?.forEach((id: string) => {
+        playlistStore.removeSongFromPlaylist(id);
+      });
+    },
+  },
+  {
+    name: "Crop selected",
+    onClick: () => {},
+    disabled: true,
+  },
+  {
+    name: "Clear playlist",
+    onClick: playlistStore.clearPlaylist,
+  },
+];
+
+const handleClick = (event: MouseEvent, options: ContextMenuOption[]) => {
+  contextMenuOptions.value = options;
+  menuRef.value.showMenu(event, true);
+};
 </script>
 
 <template>
@@ -41,7 +78,11 @@ const handleClick = (event: MouseEvent) => menuRef.value.showMenu(event, true);
     <Scrollbar>
       <ScreenBase class="playlist_window__screen_base">
         <div class="playlist_window__song_list">
-          <SongList :playlist="playlistStore.playlist" @playSong="playSong" />
+          <SongList
+            ref="songListRef"
+            :playlist="playlistStore.playlist"
+            @playSong="playSong"
+          />
         </div>
       </ScreenBase>
     </Scrollbar>
@@ -49,14 +90,23 @@ const handleClick = (event: MouseEvent) => menuRef.value.showMenu(event, true);
       <ButtonComponent
         type="text"
         :height="18"
-        @click="handleClick"
+        @click="(event: MouseEvent) => handleClick(event, addOptions)"
         withClassicBackground
         withMenu
       >
         ADD
       </ButtonComponent>
+      <ButtonComponent
+        type="text"
+        :height="18"
+        @click="(event: MouseEvent) => handleClick(event, removeOptions)"
+        withClassicBackground
+        withMenu
+      >
+        REM
+      </ButtonComponent>
     </div>
-    <ContextMenu ref="menuRef" :options="addOptions" />
+    <ContextMenu ref="menuRef" :options="contextMenuOptions" />
   </WindowBase>
 </template>
 
@@ -66,6 +116,8 @@ const handleClick = (event: MouseEvent) => menuRef.value.showMenu(event, true);
     width: 100%;
     height: 100%;
     min-height: 60px;
+    display: flex;
+    flex-direction: column;
   }
 
   &__buttons {

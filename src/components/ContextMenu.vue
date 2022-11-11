@@ -26,7 +26,10 @@ defineExpose({
       v-for="(option, index) in options"
       :key="index"
       class="context-menu__item"
-      :class="[option.class]"
+      :class="[
+        option.class,
+        { 'context-menu__item--disabled': option.disabled },
+      ]"
       @click="(event) => onOptionSelected(event, option)"
     >
       {{ option.name }}
@@ -76,9 +79,14 @@ defineExpose({
     color: white;
     font-family: "Tahoma";
     font-size: 12px;
-    padding: 3px 3px 3px 32px;
+    padding: 3px 16px 3px 32px;
 
-    &:hover {
+    &--disabled {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
+    &:not(&--disabled):hover {
       background: rgba(255, 255, 255, 0.2);
       box-shadow: 0 0 1px white;
     }
