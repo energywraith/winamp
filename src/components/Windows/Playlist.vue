@@ -67,6 +67,21 @@ const removeOptions = [
   },
 ];
 
+const selectOptions = [
+  {
+    name: "Select all",
+    onClick: () => songListRef.value?.selectAll(),
+  },
+  {
+    name: "Select none",
+    onClick: () => songListRef.value?.selectNone(),
+  },
+  {
+    name: "Invert selection",
+    onClick: () => songListRef.value?.invertSelect(),
+  },
+];
+
 const handleClick = (event: MouseEvent, options: ContextMenuOption[]) => {
   contextMenuOptions.value = options;
   menuRef.value.showMenu(event, true);
@@ -104,6 +119,15 @@ const handleClick = (event: MouseEvent, options: ContextMenuOption[]) => {
         withMenu
       >
         REM
+      </ButtonComponent>
+      <ButtonComponent
+        type="text"
+        :height="18"
+        @click="(event: MouseEvent) => handleClick(event, selectOptions)"
+        withClassicBackground
+        withMenu
+      >
+        SEL
       </ButtonComponent>
     </div>
     <ContextMenu ref="menuRef" :options="contextMenuOptions" />

@@ -3,6 +3,9 @@ import type { Playlist } from "@/types/playlist";
 
 import { parseSecondsToMinutes } from "@/utils/parseSecondsToMinutes";
 import { formatTime } from "@/utils/formatTime";
+import { usePlaylistStore } from "~/stores/playlist";
+
+const playlistStore = usePlaylistStore();
 
 interface Props {
   playlist: Playlist;
@@ -35,12 +38,33 @@ const setFocusedSongs = (songId: string, withCtrl?: boolean) => {
   selectedSongs.value = [songId];
 };
 
+const selectAll = () => {
+  selectedSongs.value = playlistStore.playlist.map((song) => song.id);
+};
+
+const selectNone = () => {
+  selectedSongs.value = [];
+};
+
+const invertSelect = () => {
+  selectedSongs.value = playlistStore.playlist.reduce((acc: string[], song) => {
+    if (selectedSongs.value.includes(song.id)) {
+      return acc;
+    }
+
+    return [...acc, song.id];
+  }, []);
+};
+
 const onBlur = () => {
   selectedSongs.value = [];
 };
 
 defineExpose({
   selectedSongs,
+  selectAll,
+  selectNone,
+  invertSelect,
 });
 </script>
 
