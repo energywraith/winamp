@@ -3,8 +3,6 @@ import { usePlayerStore } from "@/stores/player";
 import { usePlaylistStore } from "@/stores/playlist";
 import type { VNodeRef } from "vue";
 
-import { matchYoutubeLinkRegex } from "@/utils/youtubeLinkRegex";
-import { matchYoutubeIdRegex } from "@/utils/youtubeIdRegex";
 import type { ContextMenuOption } from "@/types/contextMenuOption";
 
 const songListRef = ref<VNodeRef | null>(null);
@@ -19,72 +17,15 @@ const playSong = (id: string) => {
   playerStore.resume();
 };
 
-// TODO: Move options to external file
-const addOptions = [
-  {
-    name: "Add file(s)",
-    onClick: () => {},
-    disabled: true,
-  },
-  {
-    name: "Add folder",
-    onClick: () => {},
-    disabled: true,
-  },
-  {
-    name: "Add URL",
-    onClick: () => {
-      const url = prompt("ITS TEMPORARY DONT WORRY: Input url :)");
-      if (!url) return;
-
-      if (!matchYoutubeLinkRegex(url) && !matchYoutubeIdRegex(url)) {
-        alert("INVALID URL");
-        return;
-      }
-
-      playlistStore.addSongToPlaylist(url);
-    },
-  },
-];
-
-const removeOptions = [
-  {
-    name: "Remove selected",
-    onClick: () => {
-      songListRef.value?.selectedSongs?.forEach((id: string) => {
-        playlistStore.removeSongFromPlaylist(id);
-      });
-    },
-  },
-  {
-    name: "Crop selected",
-    onClick: () => {},
-    disabled: true,
-  },
-  {
-    name: "Clear playlist",
-    onClick: playlistStore.clearPlaylist,
-  },
-];
-
-const selectOptions = [
-  {
-    name: "Select all",
-    onClick: () => songListRef.value?.selectAll(),
-  },
-  {
-    name: "Select none",
-    onClick: () => songListRef.value?.selectNone(),
-  },
-  {
-    name: "Invert selection",
-    onClick: () => songListRef.value?.invertSelect(),
-  },
-];
+const [addOptions, removeOptions, selectOptions, miscellaneousOptions] =
+  usePlaylistMenus(songListRef);
 
 const handleClick = (event: MouseEvent, options: ContextMenuOption[]) => {
   contextMenuOptions.value = options;
-  menuRef.value.showMenu(event, true);
+  menuRef.value.showMenu(event, {
+    openRelativeToOrigin: true,
+    direction: "top",
+  });
 };
 </script>
 
@@ -128,6 +69,15 @@ const handleClick = (event: MouseEvent, options: ContextMenuOption[]) => {
         withMenu
       >
         SEL
+      </ButtonComponent>
+      <ButtonComponent
+        type="text"
+        :height="18"
+        @click="(event: MouseEvent) => handleClick(event, miscellaneousOptions)"
+        withClassicBackground
+        withMenu
+      >
+        MISC
       </ButtonComponent>
     </div>
     <ContextMenu ref="menuRef" :options="contextMenuOptions" />
