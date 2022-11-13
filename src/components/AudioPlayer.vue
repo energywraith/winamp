@@ -31,7 +31,16 @@ onMounted(() => {
     playSong(playlistStore.getCurrentSongDetails);
   }
 
-  watch(() => playlistStore.getCurrentSongDetails, playSong);
+  watch(
+    () => playlistStore.getCurrentSongDetails,
+    (song) => {
+      if (!song) {
+        playerStore.stop();
+      }
+
+      playSong(song);
+    }
+  );
 
   watch(
     () => playerStore.isPlaying,
