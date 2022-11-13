@@ -60,6 +60,23 @@ export const usePlaylistMenus = (
       name: "Clear playlist",
       onClick: playlistStore.clearPlaylist,
     },
+    {
+      name: "Remove...",
+      subOptions: [
+        {
+          name: "Remove missing file(s) from playlist",
+          disabled: true,
+        },
+        {
+          name: "Physically remove selected file(s)",
+          disabled: true,
+        },
+        {
+          name: "Remove duplicate file(s) from playlist",
+          disabled: true,
+        },
+      ],
+    },
   ];
 
   const selectOptions = [
