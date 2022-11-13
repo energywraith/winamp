@@ -14,26 +14,20 @@ const onClickOutside = () => {
 };
 
 defineProps<Props>();
-
 defineExpose({
   showMenu,
+  hideMenu,
 });
 </script>
 
 <template>
   <ul ref="menuRef" class="context-menu" v-click-outside="onClickOutside">
-    <li
+    <ContextMenuOption
       v-for="(option, index) in options"
       :key="index"
-      class="context-menu__item"
-      :class="[
-        option.class,
-        { 'context-menu__item--disabled': option.disabled },
-      ]"
-      @click="(event) => onOptionSelected(event, option)"
-    >
-      {{ option.name }}
-    </li>
+      :option="option"
+      @click="(event: MouseEvent) => onOptionSelected(event, option)"
+    />
   </ul>
 </template>
 
@@ -71,25 +65,6 @@ defineExpose({
 
   &--active {
     display: block;
-  }
-
-  &__item {
-    display: flex;
-    align-items: center;
-    color: white;
-    font-family: "Tahoma";
-    font-size: 12px;
-    padding: 3px 16px 3px 32px;
-
-    &--disabled {
-      pointer-events: none;
-      opacity: 0.5;
-    }
-
-    &:not(&--disabled):hover {
-      background: rgba(255, 255, 255, 0.2);
-      box-shadow: 0 0 1px white;
-    }
   }
 }
 </style>

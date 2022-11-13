@@ -1,6 +1,7 @@
 export type ContextMenuOption = {
   name: string;
-  class?: string;
-  onClick: (event: Event) => void;
+  onClick?: (event: MouseEvent) => void;
+  subOptions?: ContextMenuOption[];
   disabled?: boolean;
+  class?: string;
 };
