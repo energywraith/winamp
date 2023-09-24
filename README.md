@@ -10,13 +10,13 @@ Remember the old good times when you used to listen to the legendary songs on yo
 + Vue 3
 + Pinia
 + SCSS
-+ ytdl-core
++ googleapis
 - Boring libraries
 ```
 
 ## Transition from Express to Nuxt 3
 
-During the development of the application, I noticed that the express on the backend actually just complicates the code of my application. The backend is very simple, its only task at the moment is to download songs using Ytdl, which is impossible on the client side.
+During the development of the application, I noticed that the express on the backend actually just complicates the code of my application. The backend is very simple, its only task at the moment is to download songs using ~~Ytdl~~ (Moved to Google Drive API), which is impossible on the client side.
 
 Knowing a bit about the React ecosystem, I started to look into whether there might be some interesting Next counterpart for Vue. And here came Nuxt 3, which delighted me with its simplicity, as well as the amount of facilitation it serves. So I decided to move Winamp from Express to Nuxt!
 
