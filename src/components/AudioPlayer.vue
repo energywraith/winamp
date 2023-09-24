@@ -26,9 +26,9 @@ const playSong = (newSong: Song | null) => {
 onMounted(() => {
   playerStore.setPlayerRef(audioRef);
 
-  // if (!playlistStore.getCurrentSongDetails) {
-  playlistStore.initPlaylist();
-  // }
+  if (!playlistStore.getCurrentSongDetails) {
+    playlistStore.initPlaylist();
+  }
 
   if (playlistStore.getCurrentSongDetails) {
     playSong(playlistStore.getCurrentSongDetails);
