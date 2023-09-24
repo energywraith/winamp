@@ -4,7 +4,6 @@ import { usePlayerStore } from "@/stores/player";
 import { usePlaylistStore } from "@/stores/playlist";
 import { Song } from "~/types/song";
 
-const appConfig = useAppConfig();
 const playerStore = usePlayerStore();
 const playlistStore = usePlaylistStore();
 
@@ -27,11 +26,9 @@ const playSong = (newSong: Song | null) => {
 onMounted(() => {
   playerStore.setPlayerRef(audioRef);
 
-  if (!playlistStore.getCurrentSongDetails && appConfig.startPlaylist) {
-    appConfig.startPlaylist.forEach((songURL: string) => {
-      playlistStore.addSongToPlaylist(songURL);
-    });
-  }
+  // if (!playlistStore.getCurrentSongDetails) {
+  playlistStore.initPlaylist();
+  // }
 
   if (playlistStore.getCurrentSongDetails) {
     playSong(playlistStore.getCurrentSongDetails);
@@ -76,6 +73,8 @@ const timeUpdate = (event: Event) =>
   playerStore.setSeeking((event.target as HTMLAudioElement).currentTime);
 
 const onDataLoaded = () => {
+  playerStore.setDuration(audioRef.value.duration);
+
   if (playerStore.isPlaying) {
     audioRef.value.play();
     return;

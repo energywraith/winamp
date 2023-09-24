@@ -29,16 +29,15 @@ export const usePlaylistMenus = (
     {
       name: "Add URL",
       onClick: () => {
-        const url = prompt("ITS TEMPORARY DONT WORRY: Input url :)");
-        if (!url) return;
-
-        if (!matchYoutubeLinkRegex(url) && !matchYoutubeIdRegex(url)) {
-          alert("INVALID URL");
-          return;
-        }
-
-        playlistStore.addSongToPlaylist(url);
+        // const url = prompt("ITS TEMPORARY DONT WORRY: Input url :)");
+        // if (!url) return;
+        // if (!matchYoutubeLinkRegex(url) && !matchYoutubeIdRegex(url)) {
+        //   alert("INVALID URL");
+        //   return;
+        // }
+        // playlistStore.addSongToPlaylist(url);
       },
+      disabled: true,
     },
   ];
 

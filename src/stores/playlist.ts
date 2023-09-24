@@ -3,10 +3,6 @@ import { usePlayerStore } from "./player";
 import { parseYoutubeId } from "~/utils/parseYoutubeId";
 import type { Song } from "@/types/song";
 
-// Currently song.id is based on youtube Id of the video,
-// youtubeId is not always unique(if we add 2 songs to playlist),
-// which will probably cause bugs
-
 export const usePlaylistStore = defineStore("playlist", {
   state: () => ({
     playlist: [] as Playlist,
@@ -29,18 +25,21 @@ export const usePlaylistStore = defineStore("playlist", {
     },
   },
   actions: {
-    async addSongToPlaylist(id: string) {
+    async initPlaylist() {
       try {
-        const song = await $fetch(`/api/song/${parseYoutubeId(id)}`);
+        const songs = await $fetch(`/api/songs`);
 
-        if (!song) {
+        if (!songs) {
           return;
         }
 
-        this.playlist = [...this.playlist, song];
+        this.playlist = songs;
       } catch (error) {
         console.log(error);
       }
+    },
+    addSongToPlaylist() {
+      //
     },
     removeSongFromPlaylist(id: string) {
       const filteredPlaylist = this.playlist.filter((song) => song.id !== id);

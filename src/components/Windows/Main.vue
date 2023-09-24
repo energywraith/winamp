@@ -164,7 +164,7 @@ const onSeekingEnd = () => {
       v-model="formValues.seeking"
       @input="playerStore.setPlayingTime"
       @change="onSeekingEnd"
-      :max="playlistStore.getCurrentSongDetails?.durationInSeconds"
+      :max="playerStore.duration"
       withGoldenThumb
       withCustomChangeEvent
     />

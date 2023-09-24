@@ -14,6 +14,7 @@ export const usePlayerStore = defineStore("player", {
     balance: 100,
     seeking: "0",
     resumeOnSeekingEnd: undefined as boolean | undefined,
+    duration: "0",
   }),
   getters: {
     getVolume(): number {
@@ -81,6 +82,9 @@ export const usePlayerStore = defineStore("player", {
     setCurrentSongIndex(index: number) {
       this.isPlaying = false;
       this.currentSongIndex = index;
+    },
+    setDuration(duration: string) {
+      this.duration = duration;
     },
     toggleShuffleMode() {
       //
