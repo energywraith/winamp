@@ -2,7 +2,7 @@
 import type { Ref } from "vue";
 
 interface Props {
-  modelValue: Ref<string> | Ref<number>;
+  modelValue: Ref<string>;
   max?: string;
   withColoredTrack?: boolean;
   withGoldenThumb?: boolean;
@@ -18,18 +18,22 @@ interface Emits {
 const props = defineProps<Props>();
 const emit = defineEmits<Emits>();
 
-const inputTrackColor = ref<string>(
-  props.withColoredTrack ? "hsl(128, 100%, 35%)" : "transparent"
-);
+const getTrackColor = (newValue: string) => {
+  if (!props.withColoredTrack) return "transparent";
+
+  const h = (+newValue * 128) / 100;
+  return `hsl(${h}, 100%, 35%)`;
+};
+
+const inputTrackColor = ref<string>(getTrackColor(props.modelValue.value));
+
+const updateTrackColor = (newValue: string) => {
+  inputTrackColor.value = getTrackColor(newValue);
+};
 
 useModelValueUpdateCallback({
   value: props.modelValue,
-  callback: (newValue) => {
-    if (!props.withColoredTrack) return;
-
-    const h = (+newValue * 128) / 100;
-    inputTrackColor.value = `hsl(${h}, 100%, 35%)`;
-  },
+  callback: updateTrackColor,
 });
 
 const onChange = (e: Event) => {

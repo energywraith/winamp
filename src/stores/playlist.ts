@@ -1,6 +1,5 @@
 import { Playlist } from "@/types/playlist";
 import { usePlayerStore } from "./player";
-import { parseYoutubeId } from "~/utils/parseYoutubeId";
 import type { Song } from "@/types/song";
 
 export const usePlaylistStore = defineStore("playlist", {

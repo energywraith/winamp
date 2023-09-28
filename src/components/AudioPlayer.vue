@@ -23,7 +23,7 @@ const playSong = (newSong: Song | null) => {
   }
 };
 
-onMounted(() => {
+onMounted(async () => {
   playerStore.setPlayerRef(audioRef);
 
   if (!playlistStore.getCurrentSongDetails) {
@@ -34,6 +34,10 @@ onMounted(() => {
     playSong(playlistStore.getCurrentSongDetails);
   }
 
+  await nextTick();
+
+  playerStore.setVolume(playerStore.volume);
+
   watch(
     () => playlistStore.getCurrentSongDetails,
     (song) => {
@@ -42,29 +46,6 @@ onMounted(() => {
       }
 
       playSong(song);
-    }
-  );
-
-  watch(
-    () => playerStore.isPlaying,
-    (isPlaying) => {
-      if (!audioRef.value) return;
-
-      if (isPlaying) {
-        audioRef.value.play();
-        return;
-      }
-
-      audioRef.value.pause();
-    }
-  );
-
-  watch(
-    () => playerStore.getVolume,
-    (volume) => {
-      if (!audioRef.value) return;
-
-      audioRef.value.volume = volume;
     }
   );
 });

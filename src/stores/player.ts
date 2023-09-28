@@ -25,10 +25,18 @@ export const usePlayerStore = defineStore("player", {
     resume() {
       this.isPlaying = true;
       this.playState = "PLAYING";
+
+      if (this.playerRef) {
+        this.playerRef.play();
+      }
     },
     pause() {
       this.isPlaying = false;
       this.playState = "PAUSED";
+
+      if (this.playerRef) {
+        this.playerRef.pause();
+      }
     },
     stop() {
       this.pause();
@@ -69,6 +77,10 @@ export const usePlayerStore = defineStore("player", {
     },
     setVolume(volume: number) {
       this.volume = volume;
+
+      if (this.playerRef) {
+        this.playerRef.volume = volume / 100;
+      }
     },
     setBalance(balance: number) {
       this.balance = balance;
@@ -92,5 +104,8 @@ export const usePlayerStore = defineStore("player", {
     toggleRepeatMode() {
       //
     },
+  },
+  persistentState: {
+    stateKey: "volume",
   },
 });
