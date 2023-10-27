@@ -35,5 +35,8 @@ defineProps<Props>();
 .play_state_icon {
   color: v-bind("theme?.colors.winampGreen");
   padding-left: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

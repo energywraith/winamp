@@ -4,6 +4,9 @@ interface Props {
 }
 
 defineProps<Props>();
+
+const appConfig = useAppConfig();
+const theme = appConfig.theme;
 </script>
 
 <template>
@@ -56,6 +59,9 @@ defineProps<Props>();
     position: relative;
     display: flex;
     height: 100%;
+    font-family: "Pixelmix";
+    font-size: 7px;
+    color: v-bind("theme?.colors.winampGreen");
 
     &__side_letters {
       color: #435166;
