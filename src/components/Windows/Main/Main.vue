@@ -1,29 +1,4 @@
-<script setup lang="ts">
-import type { Song } from "@/types/song";
-
-import { usePlayerStore } from "@/stores/player";
-import { usePlaylistStore } from "@/stores/playlist";
-
-import { getPageTitle } from "~/utils/getPageTitle";
-
-const playerStore = usePlayerStore();
-const playlistStore = usePlaylistStore();
-
-onMounted(() => {
-  watch(
-    () =>
-      [playerStore.isPlaying, playlistStore.getCurrentSongDetails] as [
-        boolean,
-        Song | null
-      ],
-    ([isPlaying, currentSong]) => {
-      useHead({
-        title: getPageTitle(isPlaying ? currentSong?.name : undefined),
-      });
-    }
-  );
-});
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <WindowBase name="Winamp" class="main_window">
