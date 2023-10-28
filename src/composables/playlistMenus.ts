@@ -1,21 +1,11 @@
 import type { Ref, VNodeRef } from "vue";
 import { usePlaylistStore } from "@/stores/playlist";
+import { ContextMenuOption } from "@/types/contextMenuOption";
 
-import { matchYoutubeLinkRegex } from "@/utils/youtubeLinkRegex";
-import { matchYoutubeIdRegex } from "@/utils/youtubeIdRegex";
-import { ContextMenuOption } from "../types/contextMenuOption";
-
-export const usePlaylistMenus = (
-  songListRef: Ref<VNodeRef> | null
-): [
-  ContextMenuOption[],
-  ContextMenuOption[],
-  ContextMenuOption[],
-  ContextMenuOption[]
-] => {
+export const usePlaylistMenus = () => {
   const playlistStore = usePlaylistStore();
 
-  const addOptions = [
+  const getAddOptions = (_: Ref<VNodeRef> | null) => [
     {
       name: "Add file(s)",
       onClick: () => {},
@@ -41,7 +31,7 @@ export const usePlaylistMenus = (
     },
   ];
 
-  const removeOptions = [
+  const getRemoveOptions = (songListRef: Ref<VNodeRef> | null) => [
     {
       name: "Remove selected",
       onClick: () => {
@@ -78,7 +68,7 @@ export const usePlaylistMenus = (
     },
   ];
 
-  const selectOptions = [
+  const getSelectOptions = (songListRef: Ref<VNodeRef> | null) => [
     {
       name: "Select all",
       onClick: () => songListRef?.value?.selectAll(),
@@ -93,7 +83,7 @@ export const usePlaylistMenus = (
     },
   ];
 
-  const miscellaneousOptions = [
+  const getMiscellaneousOptions = (songListRef: Ref<VNodeRef> | null) => [
     {
       name: "File info",
       subOptions: [
@@ -171,5 +161,14 @@ export const usePlaylistMenus = (
     },
   ];
 
-  return [addOptions, removeOptions, selectOptions, miscellaneousOptions];
+  return {
+    getAddOptions,
+    getRemoveOptions,
+    getSelectOptions,
+    getMiscellaneousOptions,
+  };
 };
+
+export type GetOptionsType = (
+  songListRef: Ref<VNodeRef> | null
+) => ContextMenuOption[];

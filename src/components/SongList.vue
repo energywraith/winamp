@@ -1,27 +1,17 @@
 <script setup lang="ts">
-import type { Playlist } from "@/types/playlist";
-
 import { parseSecondsToMinutes } from "@/utils/parseSecondsToMinutes";
 import { formatTime } from "@/utils/formatTime";
 import { usePlaylistStore } from "~/stores/playlist";
+import { usePlayerStore } from "../stores/player";
 
 const playlistStore = usePlaylistStore();
-
-interface Props {
-  playlist: Playlist;
-}
-
-interface Emits {
-  (e: "playSong", value: string): void;
-}
-
-defineProps<Props>();
-const emit = defineEmits<Emits>();
+const playerStore = usePlayerStore();
 
 const selectedSongs = ref<string[]>([]);
 
-const playSong = (songId: string) => {
-  emit("playSong", songId);
+const playSong = (id: string) => {
+  playerStore.setCurrentSongIndex(playlistStore.getSongIndex(id));
+  playerStore.resume();
 };
 
 const setFocusedSongs = (songId: string, withCtrl?: boolean) => {
@@ -71,7 +61,7 @@ defineExpose({
 <template>
   <ol class="song_list" @click.self="onBlur">
     <li
-      v-for="(song, index) in playlist"
+      v-for="(song, index) in playlistStore.playlist"
       :class="[
         'song_list__song',
         { 'song_list__song--focused': selectedSongs.includes(song.id) },
