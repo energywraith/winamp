@@ -1,5 +1,15 @@
 <script setup lang="ts">
-const showEqualizer = ref(false);
+import { useEqualizerStore } from "@/stores/equalizer";
+
+const equalizerStore = useEqualizerStore();
+
+const showEqualizer = ref(equalizerStore.isWindowOpen);
+
+onMounted(() => {
+  watch(showEqualizer, (value) => {
+    equalizerStore.setIsWindowOpen(value);
+  });
+});
 </script>
 
 <template>
@@ -7,7 +17,7 @@ const showEqualizer = ref(false);
     v-model="showEqualizer"
     name="equalizer"
     label="eq"
-    class="checkbox_input checkbox_input--equalizer"
+    class="checkbox_input"
   />
 </template>
 

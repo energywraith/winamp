@@ -12,7 +12,7 @@ interface Emits {
 defineProps<Props>();
 const emit = defineEmits<Emits>();
 
-const onChange = (e: Event) => {
+const handleInput = (e: Event) => {
   emit("update:modelValue", (e.target as HTMLInputElement).checked);
 };
 </script>
@@ -22,8 +22,9 @@ const onChange = (e: Event) => {
     <input
       type="checkbox"
       :name="name"
+      :checked="modelValue"
       :value="modelValue"
-      :onchange="onChange"
+      @input="handleInput"
     />
     <label :for="name" class="checkbox_label">
       <div class="checkbox_label__status" />

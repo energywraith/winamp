@@ -1,5 +1,15 @@
 <script setup lang="ts">
-const showPlaylist = ref(false);
+import { usePlaylistStore } from "@/stores/playlist";
+
+const playlistStore = usePlaylistStore();
+
+const showPlaylist = ref(playlistStore.isWindowOpen);
+
+onMounted(() => {
+  watch(showPlaylist, (value) => {
+    playlistStore.setIsWindowOpen(value);
+  });
+});
 </script>
 
 <template>

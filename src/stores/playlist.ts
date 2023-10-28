@@ -4,6 +4,7 @@ import type { Song } from "@/types/song";
 
 export const usePlaylistStore = defineStore("playlist", {
   state: () => ({
+    isWindowOpen: true,
     playlist: [] as Playlist,
   }),
   getters: {
@@ -47,6 +48,9 @@ export const usePlaylistStore = defineStore("playlist", {
     },
     clearPlaylist() {
       this.playlist = [];
+    },
+    setIsWindowOpen(isWindowOpen: boolean) {
+      this.isWindowOpen = isWindowOpen;
     },
   },
   persistentState: {
