@@ -23,7 +23,15 @@ onMounted(() => {
     <template #sideLetters>0AIDV</template>
     <div class="screen_base__content">
       <PlayState :state="playerStore.playState" />
-      <div class="screen_base__content__timer">
+      <div
+        class="screen_base__content__timer"
+        :class="
+          !(playerStore.playState === 'PLAYING') &&
+          !playerStore.resumeOnSeekingEnd
+            ? 'screen_base__content__timer--blink'
+            : ''
+        "
+      >
         {{ seekingTime }}
       </div>
       <SoundVisualizer class="screen_base__content__visualizer" />
@@ -32,6 +40,12 @@ onMounted(() => {
 </template>
 
 <style lang="scss" scoped>
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
 .screen_base {
   width: 88px;
   height: 42px;
@@ -52,6 +66,10 @@ onMounted(() => {
       margin-top: auto;
       font-size: 14px;
       letter-spacing: 1px;
+
+      &--blink {
+        animation: blinker 3s step-start infinite;
+      }
     }
 
     &__visualizer {
